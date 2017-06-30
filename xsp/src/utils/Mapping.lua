@@ -10,11 +10,14 @@ Mapping = {}
 Mapping.timeout = 20        --出错超时时间
 Mapping.repeattimes = 20    --判断出错重复页面的次数
 Mapping.snapshot = true     --出错后截图
-Mapping.checkout = false    --出错后运行程序
 Mapping.errorrepeat = 1     --出错后运行程序的次数
 Mapping.defaultfuzzy = 95   --默认检查函数的相似度
 Mapping.defaultoffset = 5   --默认随机点击的偏移量为5个像素点
 --Mapping.errorlog = true   --错误日志是否开启,等写完save模块,有了存储的功能,再写进去,现在不单独写了
+
+Mapping.checkout = false    --出错后运行程序
+Mapping.invalidCheckTimes = 10    --多少次没有检测到，走下一个索引
+Mapping.validCheckTimes = 10    --多少次检测到，仍在当前索引上，就做其他操作
 
 --建立参数的简写方法,也可全拼写入
 Mapping.parcase = {
@@ -29,7 +32,9 @@ Mapping.parcase = {
   ["a"]  = "action",      --动作函数
   ["ap"] = "action_par",   --动作函数的参数
   ["e"]  = "ending",       --动作结束后函数
-  ["ep"] = "ending_par"   --动作结束后函数的参数
+  ["ep"] = "ending_par",   --动作结束后函数的参数
+	["ci"] = "checkin",				-- 和co对应，设置后检测到多少次后，还行cifunc方法
+	["cifunc"] = "checkin_function"	--检测到很多次后，还在这个页面就执行后面的方法
 }
 --新建一个索引,name为可选参数,为上级索引的名字
 function Mapping:new(name)
@@ -89,6 +94,7 @@ function Mapping:AddPages( ... )
     end
     self.pages[i]["defaultfuzzy"] = self.defaultfuzzy
     self.pages[i]["defaultoffset"] = self.defaultoffset
+		self.pages[i]["checkin"]   = self.pages[i]["checkin"] or false
   end
 end
 
@@ -97,13 +103,14 @@ end
 function Mapping:CommonCode()
   for i,v in ipairs(CommonCode) do
     if Public:check(v[2]) then
-      print("每个索引都要检查的错误页面："..v[1])
+--      print("每个索引都要检查的错误页面："..v[1])
       if v[3] and type(v[3])=="table" then
         Public:click(v[3])
 				if v[4] and type(v[4])=="function" then
 					v[4]()--调用第四个参数的方法
 				end
       end
+			break--错误页面检测到后 就直接结束循环提高效率
     end
   end
 end
@@ -113,10 +120,11 @@ function Mapping:Run()
   self.finished = false
   local runCountLocal =0--记录重复执行的次数
   local checkoutCount =0--记录多少次没有检测到这个页面，只有配置里的checkout属性才有效
-	local nextMethod =nil--针对循环里面的循环，当父循环需要结束，进入自循环的时候使用
+	local checkinCount =0--记录多少次检测到这个页面，只有配置里的checkin属性才有效
+	local nextMethod =nil--针对循环里面的循环，当父循环需要结束，进入子循环的时候使用
   while not self.finished do
     runCountLocal= runCountLocal+1
-    mSleep(1000-delay)--以免占用cpu过高
+--    mSleep(1000-delay)--以免占用cpu过高
     keepScreen(true)
     for i,page in ipairs(self.pages) do
       if _debug then
@@ -131,9 +139,7 @@ function Mapping:Run()
           --显示当前操作
           showTip("当前操作："..page.pagename)
           if page.action_par then
-            if type(page.action_par)=="function" then
-              page.action_par()
-            elseif type(page.action)=="string" then
+            if type(page.action)=="string" then
               page.action=self.basefn[page.action]
               page:action(page.action_par)
             else
@@ -141,11 +147,7 @@ function Mapping:Run()
             end
           elseif page.action=="searchTap" then
             page.action=self.basefn[page.action]
-            page:action(page.check_par)
-          elseif page.action=="finish" then
-            --这种情况，只适用于当前索引已经结束，执行准备下一个索引的情况
-            self.finished =true--这个索引结束
-						break
+            page:action(page.check_par)--和上面 执行参数不一样
           else 
             page:action() 
           end
@@ -164,16 +166,27 @@ function Mapping:Run()
 						break
           end
         end
+				if page.checkin==true then
+					checkinCount=checkinCount+1
+          if checkinCount>=self.validCheckTimes then
+            --如果遍历10次都找到这个界面，就做另一个处理
+						if page.cifunc then
+							page:cifunc()--如果有处理方法，就走处理方法，没有就直接结束索引
+						else
+							self.finished =true--这个索引结束
+							break
+						end
+          end
+        end
         --        break
       else  --没有检测到页面 page.checkout 只能配置在标志性界面上，即打开后的下个索引出现的界面
         if page.checkout==true then
 					checkoutCount=checkoutCount+1
-          if checkoutCount>=10 then
+          if checkoutCount>=self.invalidCheckTimes then
             --如果遍历10次都没有找到这个界面，就finish
             self.finished =true--这个索引结束
 						break
           end
-          
         end
       end
       --检查不到任何页面,则向上级索引，或者说 之前已经走过这个流程，就走下面的一个索引
@@ -182,21 +195,23 @@ function Mapping:Run()
       end
     end
     keepScreen(false)
-    -- 检查是否有错误页面出现
-    Mapping:CommonCode()
-    --如果当前执行次数超过设置的超时次数，就结束当前这个索引
-    if self.runCount and self.runCount>0 and runCountLocal>self.runCount then
-      if _debug then
-        sysLog("self.runCount="..self.runCount)
-      end
-      self.finished =true
-			if self.errorNextMethod then
-				nextMethod=self.errorNextMethod
+		if not  self.finished then
+			-- 检查是否有错误页面出现
+			Mapping:CommonCode()
+			--如果当前执行次数超过设置的超时次数，就结束当前这个索引
+			if self.runCount and self.runCount>0 and runCountLocal>self.runCount then
+				if _debug then
+					sysLog("self.runCount="..self.runCount)
+				end
+				self.finished =true
+				if self.errorNextMethod then
+					nextMethod=self.errorNextMethod
+				end
 			end
-    end
+		end
   end
 	if nextMethod then
-		nextMethod()--进入下一个循环
+		nextMethod()--如果在这个索引上执行了超过self.runCount次，就结束当前节点并进入下一个循环
 	end
   return true
 end
