@@ -9,7 +9,7 @@ require "utils/util"
 --   [5]    = "ending_par"   --动作结束后运行的参数
 --   ["c"]  = "check",       --检查函数
 --   ["cp"] = "check_par"    --检查函数的参数
---   ["co"] = "chechout"     --检查是否存在的的参数,默认是检查到点后执行动作,这个参数改成true后,是检查不到点才执行动作
+--   ["co"] = "chechout"     --为true时检测不到操作10次就finish
 --   ["a"]  = "action",      --动作函数
 --   ["ap"] = "action_par"   --动作函数的参数
 --   ["e"]  = "ending"       --动作结束后函数

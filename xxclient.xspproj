@@ -23,6 +23,7 @@ size=0
 26\SOURCEFILE=/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/url.lua
 27\SOURCEFILE=/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/DeviceCheck.lua
 28\SOURCEFILE=/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataStream.lua
+29\SOURCEFILE=/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/service/MainService.lua
 3\SOURCEFILE=/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/init.lua
 4\SOURCEFILE=/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Public.lua
 5\SOURCEFILE=/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/util.lua
@@ -30,7 +31,7 @@ size=0
 7\SOURCEFILE=/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/CommonCode.lua
 8\SOURCEFILE=/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataHecheng.lua
 9\SOURCEFILE=/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/HttpUtil.lua
-size=28
+size=29
 
 [UI]
 1\UIFILE=/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/ui/ui.json

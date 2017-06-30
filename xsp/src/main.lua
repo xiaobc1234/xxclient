@@ -1,6 +1,7 @@
 --  入口
 require "init"
 require "utils/HttpUtil"
+require "service/MainService"
 
 
 
@@ -22,9 +23,12 @@ while(true) do
 	if not taskLock then
 		--没有任务在执行  发送请求获取任务
 		function success(res)
+			sysLog(res)
 			if res then
 			--执行任务方法
 				res()
+				--执行完任务之后，将全局锁解开
+				taskLock=false;
 			end
 		end
 		function _error(msg)
@@ -33,7 +37,8 @@ while(true) do
 		end
 		taskLock =true;--发送前锁住全局锁
 		synGet(httpHost.."/client/tasksQueue/"..deviceId,success,_error)
-		
+	else
+		mSleep(500)
 	end
 	
 end
