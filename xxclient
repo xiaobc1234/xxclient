@@ -223,7 +223,7 @@ _device	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/init.lua	33;"	e
 _e	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	591;"	e
 _e	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	597;"	e
 _end	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/UploadSnapshotUtil.lua	24;"	e
-_error	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/main.lua	34;"	f
+_error	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/main.lua	39;"	f
 _file	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/UploadSnapshotUtil.lua	23;"	e
 _isPhone	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/init.lua	20;"	e
 _isPhone	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/init.lua	49;"	e
@@ -429,6 +429,7 @@ chunks	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.
 chunks	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	882;"	e
 click(sleep,	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/pos.lua	28;"	f
 click(t)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Public.lua	28;"	f
+clientOnlyMain	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/main.lua	53;"	f
 close()	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/ftp.lua	184;"	f
 close()	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/http.lua	179;"	f
 close()	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/smtp.lua	73;"	f
@@ -1203,6 +1204,7 @@ sent	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/ftp.lua
 seperate	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	607;"	f
 seqno	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/smtp.lua	140;"	e
 seqno	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/smtp.lua	142;"	e
+serverMain	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/main.lua	21;"	f
 setList(...)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua	120;"	f
 setList(...)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua	76;"	f
 setRandSeed	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	994;"	f
@@ -1394,7 +1396,7 @@ stuff()	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/mime
 style	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua	206;"	e
 subs	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	621;"	e
 subtable_indent	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.lua	907;"	e
-success	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/main.lua	25;"	f
+success	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/main.lua	30;"	f
 sum(s)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	379;"	f
 sumhexa(s)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	354;"	f
 supportSize	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/init.lua	35;"	e
@@ -1427,9 +1429,9 @@ tap	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/utils.lua	19;"	
 tap	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/util.lua	70;"	f
 tap(x,	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Public.lua	46;"	f
 taskLock	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/init.lua	11;"	e
-taskLock	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/main.lua	31;"	e
-taskLock	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/main.lua	35;"	e
-taskLock	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/main.lua	38;"	e
+taskLock	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/main.lua	36;"	e
+taskLock	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/main.lua	40;"	e
+taskLock	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/main.lua	43;"	e
 tbl	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	209;"	e
 tbl	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	224;"	e
 tbl	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	239;"	e
