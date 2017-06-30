@@ -71,6 +71,17 @@ function Mapping:AddPages( ... )
       self.pages[i]={}
     end
     for key,value in pairs(page) do
+			
+			local n = tonumber(key);--转换成数字，如果不是就说明只手动设置
+			if n then
+				if n==1 then--参数1 直接可以获取pagename 和 check_par
+					self.pages[i]["pagename"]   = value[1] or ""
+					self.pages[i]["check_par"]  = value[2] or false
+				else
+					key = key+1
+				end
+			end
+			
       if self.parcase[key] == "ending" then
         if value=="finish" then
           self.pages[i][self.parcase[key]] = value
@@ -83,10 +94,10 @@ function Mapping:AddPages( ... )
         self.pages[i][self.parcase[key]] = value
       end
     end
-    self.pages[i]["pagename"]   = self.pages[i]["pagename"] or ""
+--    self.pages[i]["pagename"]   = self.pages[i]["pagename"] or ""
     self.pages[i]["check"]      = self.pages[i]["check"] or self.basefn.check
     self.pages[i]["checkout"]   = self.pages[i]["checkout"] or false
-    self.pages[i]["check_par"]  = self.pages[i]["check_par"] or false
+--    self.pages[i]["check_par"]  = self.pages[i]["check_par"] or false
     self.pages[i]["action_par"] = self.pages[i]["action_par"] or false
     self.pages[i]["ending_par"] = self.pages[i]["ending_par"] or false
     if self.pages[i]["action_par"] then
@@ -189,7 +200,7 @@ function Mapping:Run()
           end
         end
       end
-      --检查不到任何页面,则向上级索引，或者说 之前已经走过这个流程，就走下面的一个索引
+      --检查不到任何页面,则向上级索引，或者说 之前已经走过这个流程，就走下面的一个索引  目前这个逻辑不用
       if i == #self.pages and self.prev then
         self.prev:Run()
       end

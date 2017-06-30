@@ -32,7 +32,7 @@ CheckBoxGroup:create	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblib
 CheckBoxGroup:setList	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua	120;"	f
 CheckBoxGroup:setSelects	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua	135;"	f
 CommonCode	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	3;"	e
-CommonCode()	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	103;"	f
+CommonCode()	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	114;"	f
 DEFAULT	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua	4;"	e
 Edit	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua	96;"	e
 Edit:create	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua	104;"	f
@@ -61,9 +61,9 @@ Lable:create	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua
 Mapping	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	8;"	e
 Mapping.parcase	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	23;"	e
 Mapping:AddPages	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	68;"	f
-Mapping:CommonCode	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	103;"	f
-Mapping:Run	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	119;"	f
-Mapping:abnormal	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	228;"	f
+Mapping:CommonCode	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	114;"	f
+Mapping:Run	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	130;"	f
+Mapping:abnormal	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	239;"	f
 Mapping:new	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	40;"	f
 OBJDEF	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.lua	25;"	e
 OBJDEF.__tostring	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.lua	955;"	f
@@ -101,7 +101,7 @@ RadioGroup:setSelect	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblib
 RootView	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua	205;"	e
 RootView:addView	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua	221;"	f
 RootView:create	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua	215;"	f
-Run()	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	119;"	f
+Run()	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	130;"	f
 SHA1	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	865;"	f
 T	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.lua	856;"	e
 TT	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.lua	893;"	e
@@ -125,6 +125,9 @@ VERSION	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.lua	26
 ViewStyle	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua	3;"	e
 W	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	883;"	e
 X	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	370;"	e
+["已登录"]	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/Data.lua	8;"	e
+["登录主界面"]	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/Data.lua	6;"	e
+["选择角色界面"]	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/Data.lua	7;"	e
 _	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	589;"	e
 _	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	600;"	e
 _DESCRIPTION	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	3;"	e
@@ -248,7 +251,7 @@ a	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	332;"	e
 a	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	336;"	e
 a	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	340;"	e
 a	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	344;"	e
-abnormal(u,p)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	228;"	f
+abnormal(u,p)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	239;"	f
 absolute(base_url,	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/url.lua	221;"	f
 absolute_path	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/url.lua	87;"	f
 addView(view)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua	166;"	f
@@ -405,10 +408,10 @@ chars	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.l
 check(ok)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/tp.lua	49;"	f
 check(v)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Public.lua	17;"	f
 checkOnly	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/util.lua	50;"	f
-checkinCount	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	123;"	e
-checkinCount	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	170;"	e
-checkoutCount	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	122;"	e
-checkoutCount	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	184;"	e
+checkinCount	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	134;"	e
+checkinCount	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	181;"	e
+checkoutCount	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	133;"	e
+checkoutCount	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	195;"	e
 checkstep	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/ftp.lua	119;"	e
 choose	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/mime.lua	25;"	f
 choose(table)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/socket.lua	58;"	f
@@ -482,7 +485,10 @@ d	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	333;"	e
 d	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	337;"	e
 d	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	341;"	e
 d	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	345;"	e
+data	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/Data.lua	2;"	e
+data	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataTest.lua	3;"	e
 data(src,	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/smtp.lua	60;"	f
+data["登录"]	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/Data.lua	5;"	e
 decimal_part	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.lua	418;"	e
 decode(text,	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.lua	638;"	f
 decrypt	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	975;"	f
@@ -522,7 +528,7 @@ endsWith	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAP
 err	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/socket.lua	32;"	e
 error(err)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/ltn12.lua	253;"	f
 error(err)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/ltn12.lua	86;"	f
-errornum	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	266;"	e
+errornum	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	277;"	e
 escape(s)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/url.lua	30;"	f
 expand	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	70;"	f
 exponent_part	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.lua	425;"	e
@@ -711,6 +717,7 @@ k	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	8
 kbtype	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/UI.lua	101;"	e
 key	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	959;"	e
 key	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	978;"	e
+key	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	81;"	e
 keyLen	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	961;"	e
 keyLen	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	980;"	e
 key_indent	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.lua	906;"	e
@@ -880,6 +887,7 @@ n	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	187;"	e
 n	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	191;"	e
 n	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/ltn12.lua	45;"	e
 n	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/url.lua	283;"	e
+n	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	75;"	e
 nFindLastIndex	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/HttpUtil.lua	10;"	e
 nFindStartIndex	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/HttpUtil.lua	16;"	e
 nFindStartIndex	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/HttpUtil.lua	6;"	e
@@ -890,8 +898,8 @@ name	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/http.lu
 name	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/mbox.lua	42;"	e
 name	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/mbox.lua	56;"	e
 name	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/mbox.lua	59;"	e
-name	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	257;"	e
-name	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	259;"	e
+name	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	268;"	e
+name	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	270;"	e
 name	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/UploadSnapshotUtil.lua	54;"	e
 new	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.lua	962;"	e
 new(args)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.lua	961;"	f
@@ -901,8 +909,8 @@ newArray(tbl)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.
 newObject(tbl)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.lua	300;"	f
 newboundary	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/smtp.lua	141;"	f
 newval	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/JSON.lua	712;"	e
-nextMethod	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	124;"	e
-nextMethod	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	208;"	e
+nextMethod	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	135;"	e
+nextMethod	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	219;"	e
 non_zero_message_bytes	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	871;"	e
 normalize	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	51;"	e
 normalize(marker)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/mime.lua	81;"	f
@@ -947,7 +955,7 @@ override	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/ftp
 p	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	853;"	e
 p	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	855;"	e
 p	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	857;"	e
-p	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	229;"	e
+p	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	240;"	e
 padLen	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	356;"	e
 pages	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataHecheng.lua	14;"	e
 pages	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataHecheng.lua	21;"	e
@@ -1003,6 +1011,7 @@ pages	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataStream.lua	
 pages	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataStream.lua	55;"	e
 pages	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataStream.lua	67;"	e
 pages	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataStream.lua	80;"	e
+pages	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataTest.lua	7;"	e
 params	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/http.lua	192;"	e
 parse	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/ftp.lua	222;"	f
 parse(mbox_s)	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/mbox.lua	77;"	f
@@ -1154,8 +1163,8 @@ rslt	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lu
 rslt	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	291;"	e
 rslt	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	325;"	e
 rslt	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	328;"	e
-runCountLocal	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	121;"	e
-runCountLocal	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	126;"	e
+runCountLocal	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	132;"	e
+runCountLocal	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	137;"	e
 s	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	100;"	e
 s	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	362;"	e
 s	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/pos.lua	96;"	e
@@ -1235,7 +1244,7 @@ small	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.l
 small	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	343;"	e
 small	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/StrUtilsAPI.lua	346;"	e
 smtp	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/badboy.lua	72;"	e
-snapshotname	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	261;"	e
+snapshotname	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/Mapping.lua	272;"	e
 snapshotname	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/utils/UploadSnapshotUtil.lua	55;"	e
 snk	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/ltn12.lua	226;"	e
 snk	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/socket/ltn12.lua	263;"	e
@@ -1591,6 +1600,7 @@ z	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/bblibs/md5.lua	271;"	e
 滚动搜索酒	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataStream.lua	320;"	f
 点击整理	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataHecheng.lua	20;"	f
 登录	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataStream.lua	19;"	f
+登录	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataTest.lua	6;"	f
 登录	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/service/MainService.lua	7;"	f
 登录账号	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/data/DataStream.lua	479;"	f
 神威定点打牌子	/Users/xiaobc/Documents/xspworkspace/xxclient/xsp/src/service/MainService.lua	178;"	f
