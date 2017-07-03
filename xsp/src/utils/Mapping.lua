@@ -152,71 +152,73 @@ function Mapping:Run()
 		mSleep(self.delay);
     keepScreen(true)
     for i,page in ipairs(self.pages) do
+		
       if _debug then
         sysLog("pre当前操作："..page.pagename)
       end
       if page:check(page.check_par) then
         keepScreen(false)
 				
-				--	只检查一次设置：
-				if page.check_only_one== true then
-					if checkOnlyOne[page.pagename]==1 then
-						-- TODO continue
-						
+				--没有continue 关键字，所以只能加一层if判断
+				if not checkOnlyOne[page.pagename] or checkOnlyOne[page.pagename]~=1 then
+					--	只检查一次设置：
+					if page.check_only_one== true then
+						if checkOnlyOne[page.pagename]~=1 then
+							checkOnlyOne[page.pagename]=1	
+						end
 					end
-					checkOnlyOne[page.pagename]=1	
-				end
 				
-        if page.action then 
-          if _debug then
-            sysLog("当前操作："..page.pagename)
-          end
-          --显示当前操作
-          showTip("当前操作："..page.pagename)
-          if page.action_par then
-            if type(page.action)=="string" then
-              page.action=self.basefn[page.action]
-              page:action(page.action_par)
-            else
-              page:action(page.action_par) 
-            end
-          elseif page.action=="searchTap" then
-            page.action=self.basefn[page.action]
-            page:action(page.check_par)--和上面 执行参数不一样
-          else 
-            page:action() 
-          end
-        end
-        if page.ending then 
-          if page.ending=="finish" then
-            self.finished =true--这个索引结束
-            break
-          elseif page.ending_par then
-            page:ending(page.ending_par)
-          else
-            page:ending()
-          end
-          if type(page.ending_par)=="string" and page.ending_par=="finish" then
-            self.finished =true--这个索引结束
-						break
-          end
-        end
-				if page.checkin==true then
-					checkinCount=checkinCount+1
-          if checkinCount>=self.validCheckTimes then
-            --如果遍历10次都找到这个界面，就做另一个处理
-						if page.cifunc then
-							page:cifunc()--如果有处理方法，就走处理方法，没有就直接结束索引
+					if page.action then 
+						if _debug then
+							sysLog("当前操作："..page.pagename)
+						end
+						--显示当前操作
+						showTip("当前操作："..page.pagename)
+						if page.action_par then
+							if type(page.action)=="string" then
+								page.action=self.basefn[page.action]
+								page:action(page.action_par)
+							else
+								page:action(page.action_par) 
+							end
+						elseif page.action=="searchTap" then
+							page.action=self.basefn[page.action]
+							page:action(page.check_par)--和上面 执行参数不一样
+						else 
+							page:action() 
+						end
+					end
+					if page.ending then 
+						if page.ending=="finish" then
+							self.finished =true--这个索引结束
+							break
+						elseif page.ending_par then
+							page:ending(page.ending_par)
 						else
+							page:ending()
+						end
+						if type(page.ending_par)=="string" and page.ending_par=="finish" then
 							self.finished =true--这个索引结束
 							break
 						end
-          end
-        end
-				repeatTimesLocal = repeatTimesLocal+1	--检测到了页面说明执行了一次
-				if self.repeatDelay then
-					--索引配置了重复执行延迟时间
-					mSleep(self.repeatDelay)
+					end
+					if page.checkin==true then
+						checkinCount=checkinCount+1
+						if checkinCount>=self.validCheckTimes then
+							--如果遍历10次都找到这个界面，就做另一个处理
+							if page.cifunc then
+								page:cifunc()--如果有处理方法，就走处理方法，没有就直接结束索引
+							else
+								self.finished =true--这个索引结束
+								break
+							end
+						end
+					end
+					repeatTimesLocal = repeatTimesLocal+1	--检测到了页面说明执行了一次
+					if self.repeatDelay then
+						--索引配置了重复执行延迟时间
+						mSleep(self.repeatDelay)
+					end
 				end
 				
 				
@@ -235,6 +237,7 @@ function Mapping:Run()
       if i == #self.pages and self.prev then
         self.prev:Run()
       end
+			
     end
     keepScreen(false)
 		if not  self.finished then
