@@ -14,11 +14,10 @@ dialog("欢迎使用冰城脚本！您的设备号: "..deviceId)
 mSleep(1000)
 
 
-serverMain()
 
 
 -- 网络版
-function serverMain()
+local function serverMain()
 	--先发送请求,记录该设备
 	synPost(httpHost.."/client/devices/"..appAlias.."/"..deviceId,"",defaultSuccess,defaultError);
 
@@ -50,9 +49,18 @@ function serverMain()
 end
 
 -- 脱机版
-function clientOnlyMain()
+local function clientOnlyMain()
+
+登录()
 
 end
+
+
+-- 执行网络方法
+-- serverMain()
+
+-- 执行脱机版方法
+clientOnlyMain()
 
 
 

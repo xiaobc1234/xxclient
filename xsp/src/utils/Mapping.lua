@@ -18,6 +18,7 @@ Mapping.defaultoffset = 5   --默认随机点击的偏移量为5个像素点
 Mapping.checkout = false    --出错后运行程序
 Mapping.invalidCheckTimes = 10    --多少次没有检测到，走下一个索引
 Mapping.validCheckTimes = 10    --多少次检测到，仍在当前索引上，就做其他操作
+Mapping.delay = 200					--每个索引循环停留时间，避免cpu占用太高
 
 --建立参数的简写方法,也可全拼写入
 Mapping.parcase = {
@@ -34,14 +35,18 @@ Mapping.parcase = {
   ["e"]  = "ending",       --动作结束后函数
   ["ep"] = "ending_par",   --动作结束后函数的参数
 	["ci"] = "checkin",				-- 和co对应，设置后检测到多少次后，还行cifunc方法
-	["cifunc"] = "checkin_function"	--检测到很多次后，还在这个页面就执行后面的方法
+	["cifunc"] = "checkin_function",	--检测到很多次后，还在这个页面就执行后面的方法
+	["one"] = "check_only_one"	--只执行一遍这个page  默认为false，设置为true后表示只执行一次
 }
 --新建一个索引,name为可选参数,为上级索引的名字
 function Mapping:new(name)
   local index  = {}
   index.pages   = {}
   index.runCount=nil--只有设置了才有作用，运行多少次后没有找到，就结束
-	index.errorNextMethod=nil--出现异常后执行的方法
+	index.errorNextMethod=nil--出现异常后执行的方法,就是上面执行多少次后都没有找到，结束索引后执行的操作
+	index.repeatTimes=nil	--这个索引执行多少遍
+	index.repeatDelay=nil	--重复执行这个索引间隔
+	
   --索引函数的默认方法
   index.basefn = Public
   --索引列表的上级
@@ -75,8 +80,10 @@ function Mapping:AddPages( ... )
 			local n = tonumber(key);--转换成数字，如果不是就说明只手动设置
 			if n then
 				if n==1 then--参数1 直接可以获取pagename 和 check_par
+					sysLog("values[1]="..value[1])
 					self.pages[i]["pagename"]   = value[1] or ""
 					self.pages[i]["check_par"]  = value[2] or false
+					break
 				else
 					key = key+1
 				end
@@ -94,10 +101,11 @@ function Mapping:AddPages( ... )
         self.pages[i][self.parcase[key]] = value
       end
     end
---    self.pages[i]["pagename"]   = self.pages[i]["pagename"] or ""
+		
+    self.pages[i]["pagename"]   = self.pages[i]["pagename"] or ""
     self.pages[i]["check"]      = self.pages[i]["check"] or self.basefn.check
     self.pages[i]["checkout"]   = self.pages[i]["checkout"] or false
---    self.pages[i]["check_par"]  = self.pages[i]["check_par"] or false
+    self.pages[i]["check_par"]  = self.pages[i]["check_par"] or false
     self.pages[i]["action_par"] = self.pages[i]["action_par"] or false
     self.pages[i]["ending_par"] = self.pages[i]["ending_par"] or false
     if self.pages[i]["action_par"] then
@@ -106,6 +114,7 @@ function Mapping:AddPages( ... )
     self.pages[i]["defaultfuzzy"] = self.defaultfuzzy
     self.pages[i]["defaultoffset"] = self.defaultoffset
 		self.pages[i]["checkin"]   = self.pages[i]["checkin"] or false
+		self.pages[i]["check_only_one"]   = self.pages[i]["check_only_one"] or false
   end
 end
 
@@ -133,9 +142,14 @@ function Mapping:Run()
   local checkoutCount =0--记录多少次没有检测到这个页面，只有配置里的checkout属性才有效
 	local checkinCount =0--记录多少次检测到这个页面，只有配置里的checkin属性才有效
 	local nextMethod =nil--针对循环里面的循环，当父循环需要结束，进入子循环的时候使用
+	
+	local repeatTimesLocal = 0	--重复执行了多少次
+	local checkOnlyOne = {} --只检测一次的临时参数
+	
   while not self.finished do
     runCountLocal= runCountLocal+1
 --    mSleep(1000-delay)--以免占用cpu过高
+		mSleep(self.delay);
     keepScreen(true)
     for i,page in ipairs(self.pages) do
       if _debug then
@@ -143,6 +157,16 @@ function Mapping:Run()
       end
       if page:check(page.check_par) then
         keepScreen(false)
+				
+				--	只检查一次设置：
+				if page.check_only_one== true then
+					if checkOnlyOne[page.pagename]==1 then
+						-- TODO continue
+						
+					end
+					checkOnlyOne[page.pagename]=1	
+				end
+				
         if page.action then 
           if _debug then
             sysLog("当前操作："..page.pagename)
@@ -189,6 +213,13 @@ function Mapping:Run()
 						end
           end
         end
+				repeatTimesLocal = repeatTimesLocal+1	--检测到了页面说明执行了一次
+				if self.repeatDelay then
+					--索引配置了重复执行延迟时间
+					mSleep(self.repeatDelay)
+				end
+				
+				
         --        break
       else  --没有检测到页面 page.checkout 只能配置在标志性界面上，即打开后的下个索引出现的界面
         if page.checkout==true then
@@ -220,6 +251,13 @@ function Mapping:Run()
 				end
 			end
 		end
+		
+		-- 如果设置了重复执行索引，并且执行次数没有超过设置的次数
+		if self.repeatTimes and self.repeatTimes<repeatTimesLocal then
+			-- 有重复执行的设置，将索引结束标识符置为 未结束
+			self.finished =false
+		end
+		
   end
 	if nextMethod then
 		nextMethod()--如果在这个索引上执行了超过self.runCount次，就结束当前节点并进入下一个循环

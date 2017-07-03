@@ -3,33 +3,33 @@
 
 --生成随机函数，需要放大后处理  
 function random(n,m)  
-    math.randomseed(os.clock()*math.random(100000,9000000)*math.random(100000,900000))  
-    return math.random(n,m)  
+  math.randomseed(os.clock()*math.random(100000,9000000)*math.random(100000,900000))  
+  return math.random(n,m)  
 end  
-  
+
 --生成指定长度的随机字符串  
 function random_str(len)  
-    local str = ""  
-    for i=1,len,1 do  
-        str = str .. string.char(random(97,122))  
-    end  
-    return str  
+  local str = ""  
+  for i=1,len,1 do  
+    str = str .. string.char(random(97,122))  
+  end  
+  return str  
 end 
 
--- mapping的通用方法
-function mapping(pages)
-  local map = Mapping:new()
-  --添加页面
-  map:AddPages(pages)
-  --执行
-  return map:Run()
-end
+---- mapping的通用方法
+--function mapping(pages)
+--  local map = Mapping:new()
+--  --添加页面
+--  map:AddPages(pages)
+--  --执行
+--  return map:Run()
+--end
 
 
 -- mapping的通用方法
 function mapping(pages,runCount)
   local map = Mapping:new()
-	map.runCount=runCount
+  map.runCount=runCount
   --添加页面
   map:AddPages(pages)
   --执行
@@ -39,30 +39,48 @@ end
 -- mapping的通用方法
 function mapping(pages,runCount,errorNextMethod)
   local map = Mapping:new()
-	map.runCount=runCount
-	map.errorNextMethod=errorNextMethod
+  map.runCount=runCount
+  map.errorNextMethod=errorNextMethod
   --添加页面
   map:AddPages(pages)
   --执行
   return map:Run()
 end
 
+-- mapping的通用方法
+function mapping(opt)
+  local map = Mapping:new()
+	
+  if opt["pages"] then
+    map:AddPages(opt["pages"])
+  end
+  if opt["runCount"] then
+    map.runCount=opt["runCount"]
+  end
+  if opt["errorNextMethod"] then
+    map.errorNextMethod=opt["errorNextMethod"]
+  end
+  
+  --执行
+  return map:Run()
+end
+
 function checkOnly(v)
-	x, y = findMultiColorInRegionFuzzy(v[1],v[2],v[3],v[4],v[5],v[6],v[7])
-	if x > -1 then
-		return 1
-	else 
-		return nil
-	end
+  x, y = findMultiColorInRegionFuzzy(v[1],v[2],v[3],v[4],v[5],v[6],v[7])
+  if x > -1 then
+    return 1
+  else 
+    return nil
+  end
 end
 
 function searchTap(v)
-	if v then
-		x, y = findMultiColorInRegionFuzzy(v[1],v[2],v[3],v[4],v[5],v[6],v[7])
-		if x>-1 then
-			tap(x,y)
-		end
-	end
+  if v then
+    x, y = findMultiColorInRegionFuzzy(v[1],v[2],v[3],v[4],v[5],v[6],v[7])
+    if x>-1 then
+      tap(x,y)
+    end
+  end
 end
 
 

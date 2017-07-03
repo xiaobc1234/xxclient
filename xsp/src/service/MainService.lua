@@ -1,11 +1,11 @@
-require "data/DataStream"
-require "data/DataHecheng"
+local dao = require "data/DataTest"
 
 
 
 --------------------进入游戏------------------------------
 function 登录()
-
+	dao.data_登录()
+	sysLog("login end...")
 end
 
 function 角色1进入游戏()
