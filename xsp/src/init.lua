@@ -45,7 +45,7 @@ if _device == 5 then
 end
 
 
-init("",1);
+init("",0);
 _isPhone =true
 delay=1000 -- 手机上 不要while的延迟
 
@@ -56,6 +56,14 @@ tip =  createHUD() --定义一个全局的hud
 function showTip(title)
   showHUD(tip,title,12,"0xff00ff00","0xb3000000",2,0,(720-22),1280/2,22)
   --		hideHUD(hud)
+end
+
+--黑底
+function showClickView(x,y)
+	local clickView =  createHUD()
+  showHUD(clickView,"",12,"0xff00ff00","0xb3000000",0,x,y,20,20)
+	mSleep(1000)
+  hideHUD(clickView)
 end
 
 

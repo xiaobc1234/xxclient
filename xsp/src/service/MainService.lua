@@ -2,9 +2,10 @@ local dao = require "data/DataTest"
 
 
 
+
 --------------------进入游戏------------------------------
 function 登录()
-	dao.data_登录()
+	dao:data_测试()
 	sysLog("login end...")
 end
 

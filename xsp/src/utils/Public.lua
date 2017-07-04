@@ -51,6 +51,10 @@ function Public:tap(x, y)
   touchDown(index,x, y)
   mSleep(math.random(60,80))                                --某些情况可能要增大延迟
   touchUp(index, x, y)
+	if _debug==true then
+		--显示点击view
+		showClickView(x,y)
+	end
   mSleep(20)
 end
 

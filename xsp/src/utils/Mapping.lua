@@ -16,8 +16,8 @@ Mapping.defaultoffset = 5   --默认随机点击的偏移量为5个像素点
 --Mapping.errorlog = true   --错误日志是否开启,等写完save模块,有了存储的功能,再写进去,现在不单独写了
 
 Mapping.checkout = false    --出错后运行程序
-Mapping.invalidCheckTimes = 10    --多少次没有检测到，走下一个索引
-Mapping.validCheckTimes = 10    --多少次检测到，仍在当前索引上，就做其他操作
+Mapping.invalidCheckTimes = 15    --多少次没有检测到，走下一个索引
+Mapping.validCheckTimes = 15    --多少次检测到，仍在当前索引上，就做其他操作
 Mapping.delay = 200					--每个索引循环停留时间，避免cpu占用太高
 
 --建立参数的简写方法,也可全拼写入
@@ -46,6 +46,7 @@ function Mapping:new(name)
 	index.errorNextMethod=nil--出现异常后执行的方法,就是上面执行多少次后都没有找到，结束索引后执行的操作
 	index.repeatTimes=nil	--这个索引执行多少遍
 	index.repeatDelay=nil	--重复执行这个索引间隔
+	index.indexDelay=nil--单独使用，表示索引执行结束后延迟多久   具体请看util.lua的说明
 	
   --索引函数的默认方法
   index.basefn = Public
@@ -76,6 +77,7 @@ function Mapping:AddPages( ... )
       self.pages[i]={}
     end
     for key,value in pairs(page) do
+			sysLog("key="..key)
 			
 			local n = tonumber(key);--转换成数字，如果不是就说明只手动设置
 			if n then
@@ -83,23 +85,24 @@ function Mapping:AddPages( ... )
 					sysLog("values[1]="..value[1])
 					self.pages[i]["pagename"]   = value[1] or ""
 					self.pages[i]["check_par"]  = value[2] or false
-					break
 				else
 					key = key+1
 				end
 			end
 			
-      if self.parcase[key] == "ending" then
-        if value=="finish" then
-          self.pages[i][self.parcase[key]] = value
-        elseif type(value) == "string" then
-          self.pages[i][self.parcase[key]] = self.basefn[value]
-        else
-          self.pages[i][self.parcase[key]] = value
-        end
-      else
-        self.pages[i][self.parcase[key]] = value
-      end
+			if not n or n~=1 then
+				if self.parcase[key] == "ending" then
+					if value=="finish" then
+						self.pages[i][self.parcase[key]] = value
+					elseif type(value) == "string" then
+						self.pages[i][self.parcase[key]] = self.basefn[value]
+					else
+						self.pages[i][self.parcase[key]] = value
+					end
+				else
+					self.pages[i][self.parcase[key]] = value
+				end
+			end
     end
 		
     self.pages[i]["pagename"]   = self.pages[i]["pagename"] or ""
@@ -155,9 +158,12 @@ function Mapping:Run()
 		
       if _debug then
         sysLog("pre当前操作："..page.pagename)
+--				print(page)
       end
       if page:check(page.check_par) then
         keepScreen(false)
+				
+				sysLog("checkin...")
 				
 				--没有continue 关键字，所以只能加一层if判断
 				if not checkOnlyOne[page.pagename] or checkOnlyOne[page.pagename]~=1 then
@@ -195,6 +201,7 @@ function Mapping:Run()
 						elseif page.ending_par then
 							page:ending(page.ending_par)
 						else
+							sysLog("type="..type(page.ending))
 							page:ending()
 						end
 						if type(page.ending_par)=="string" and page.ending_par=="finish" then
@@ -262,6 +269,10 @@ function Mapping:Run()
 		end
 		
   end
+	-- 如果设置了索引延迟，则执行完索引之后做延迟操作
+	if self.indexDelay and tonumber(self.indexDelay) then
+		mSleep(self.indexDelay)
+	end
 	if nextMethod then
 		nextMethod()--如果在这个索引上执行了超过self.runCount次，就结束当前节点并进入下一个循环
 	end
@@ -270,54 +281,3 @@ end
 
 
 
--- ------------------------------------------下面的方法暂时没有用到------------------------------------------------
-
-
---[[检查异常页面,重复同样页面(或者找不到页面,或者两张相同页面交替重复出现)20次以上(Mapping.repeattimes控制),
-并且时间超过20秒(Mapping.timeout控制),则认为异常,异常是,以页面名字+时间命名进行全屏截图(Mapping.snapshot控制),
-并且定义了Mapping.checkout函数后,执行该函数(比如重启游戏),之后继续判断,
-Mapping.errorrepeat控制持续出错后执行checkout的时间,假如超过次数,则最后终止这个索引]]
-function Mapping:abnormal(u,p)
-  p = p or false
-  --检查页面中不超过重复次数页面
-  if #u.pages >= self.repeattimes then
-    table.remove(u.pages,1)
-  end 
-  table.insert(u.pages,p)
-  local p1 , p2 = u.pages[1] , u.pages[2]
-  --检查页面是否全部重复或者是否为1,2,1,2这样持续重复两张(有时候一个页面无法判断,就会出现这样的问题) 
-  for i,v in ipairs(u.pages) do
-    if i%2 == 1 and v ~= p1 then 
-      u.normal = true 
-      u.time = os.time() 
-      break 
-    end
-    if i%2 == 0 and (v ~= p1 and v ~=p2) then 
-      u.normal = true 
-      u.time = os.time()
-      break 
-    end
-  end
-  --判断是否正常
-  if u.normal then
-    u.normal = false
-    return u
-  elseif os.time() - u.time > self.timeout then
-    if self.snapshot then
-      local name
-      if p1 == p2 then
-        name = p1
-      else
-        name = p1.."_"..p2
-      end 
-      local snapshotname = name.."_"..os.date("%m-%d", os.time())..".png"
-      snapshot(snapshotname)
-    end
-    if self.errorrepeat >= errornum and self.checkout then
-      self.checkout()
-      errornum = errornum + 1
-    end
-  else
-    return u
-  end
-end

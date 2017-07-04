@@ -22,6 +22,19 @@ function Dao:data_登录()
 	})
 end
 
+function Dao:data_测试()
+  sysLog("data -test...")
+	
+	tap(200,500)
+	
+  local pages={
+    {data["测试"]["测试1"],{200,500},self.data_登录}
+  }
+  mapping({
+		["pages"]=pages
+	})
+end
+
 
 return Dao:new()
 
