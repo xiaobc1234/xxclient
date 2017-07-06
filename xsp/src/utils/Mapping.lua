@@ -15,6 +15,7 @@ Mapping.defaultfuzzy = 95   --默认检查函数的相似度
 Mapping.defaultoffset = 5   --默认随机点击的偏移量为5个像素点
 --Mapping.errorlog = true   --错误日志是否开启,等写完save模块,有了存储的功能,再写进去,现在不单独写了
 
+-- 下面被用到
 Mapping.checkout = false    --出错后运行程序
 Mapping.invalidCheckTimes = 15    --多少次没有检测到，走下一个索引
 Mapping.validCheckTimes = 15    --多少次检测到，仍在当前索引上，就做其他操作
@@ -85,8 +86,9 @@ function Mapping:AddPages( ... )
 					sysLog("values[1]="..value[1])
 					self.pages[i]["pagename"]   = value[1] or ""
 					self.pages[i]["check_par"]  = value[2] or false
+					self.pages[i]["action_par"]  = value[3] or false
 				else
-					key = key+1
+					key = key+2
 				end
 			end
 			
