@@ -46,9 +46,15 @@ if _device == 5 then
 --  setScreenScale(720,1280)  640*1136->5c
 end
 
+yes,config=showUI("ui.json");
+if yes==0 then 
+    toast("您选择了取消，停止脚本运行")
+    lua_exit()
+end
+
+
 
 init("",1);
-
 
 
 tip =  createHUD() --定义一个全局的hud

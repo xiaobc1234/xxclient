@@ -15,7 +15,6 @@ mSleep(1000)
 
 
 
-
 -- 网络版
 local function serverMain()
 	--先发送请求,记录该设备
@@ -51,7 +50,10 @@ end
 -- 脱机版
 local function clientOnlyMain()
 
-登录()
+if config['main']=='1' then
+	主线任务()
+end
+
 
 end
 

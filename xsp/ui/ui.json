@@ -6,5 +6,22 @@
 	"cancelname" : "取消",
 	"okname" : "确定",
 	"views" : [
+	{
+	  "align" : "center",
+	  "color" : "0,0,0",
+	  "size" : "20",
+	  "text" : "冰尘脚本 作者qq：527710279",
+	  "bg" : "255,255,255",
+	  "type" : "Label"
+  },
+	{
+	  "id" : "main",
+	  "list" : "主线任务",
+	  "select" : "0",
+	  "size" : "20",
+	  "type" : "CheckBoxGroup",
+	  "orientation" : "horizontal",
+	  "color" : "0,0,225"
+  }
 	]
 }
