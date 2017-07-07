@@ -82,7 +82,6 @@ function Mapping:AddPages( ... )
       self.pages[i]={}
     end
     for key,value in pairs(page) do
-			sysLog("key="..key)
 			
 			local n = tonumber(key);--转换成数字，如果不是就说明只手动设置
 			if n then
