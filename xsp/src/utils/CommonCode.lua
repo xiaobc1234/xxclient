@@ -10,7 +10,7 @@ local t = {
 
 --被杀后，战神没有被召唤
 t.killed = function()
-openHreo=false
+	openHreo=false
 end
 
 

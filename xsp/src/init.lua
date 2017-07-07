@@ -13,7 +13,8 @@ taskLock=false--任务锁，false表示没有任务正在进行，true表示任�
 _debug = true--定义全局debug模式
 
 
-
+-- 业务全局定义
+role =1	--角色默认是第一个角色
 
 
 --定义一些全局的变量
