@@ -37,7 +37,10 @@ Mapping.parcase = {
   ["ep"] = "ending_par",   --动作结束后函数的参数
 	["ci"] = "checkin",				-- 和co对应，设置后检测到多少次后，还行cifunc方法
 	["cifunc"] = "checkin_function",	--检测到很多次后，还在这个页面就执行后面的方法
-	["one"] = "check_only_one"	--只执行一遍这个page  默认为false，设置为true后表示只执行一次
+	["one"] = "check_only_one",	--只执行一遍这个page  默认为false，设置为true后表示只执行一次
+	["s"] = "sort",	--为了让一个索引里面存在先后顺序 sort='tmp' 表示在 zIndex[tmp] = zIndex[tmp]+1  默认zIndex={}
+	["so"] = "sort_out",	--和上面sort对应，表示谁执行后才能执行他，sort_out='tmp'
+	["son"] = "sort_out_num"	--和so配合使用，当前面page被执行多少次之后，执行当前page。默认为1 if zIndex[tmp]>=1 then  执行  end
 }
 --新建一个索引,name为可选参数,为上级索引的名字
 function Mapping:new(name)
@@ -86,9 +89,9 @@ function Mapping:AddPages( ... )
 					sysLog("values[1]="..value[1])
 					self.pages[i]["pagename"]   = value[1] or ""
 					self.pages[i]["check_par"]  = value[2] or false
-					self.pages[i]["action_par"]  = value[3] or false
+--					self.pages[i]["action_par"]  = value[3] or false
 				else
-					key = key+2
+					key = key+1
 				end
 			end
 			
@@ -120,6 +123,10 @@ function Mapping:AddPages( ... )
     self.pages[i]["defaultoffset"] = self.defaultoffset
 		self.pages[i]["checkin"]   = self.pages[i]["checkin"] or false
 		self.pages[i]["check_only_one"]   = self.pages[i]["check_only_one"] or false
+		
+		self.pages[i]["sort"]   = self.pages[i]["sort"] or false
+		self.pages[i]["sort_out"]   = self.pages[i]["sort_out"] or false
+		self.pages[i]["sort_out_num"]   = self.pages[i]["sort_out_num"] or 1
   end
 end
 
@@ -151,21 +158,23 @@ function Mapping:Run()
 	local repeatTimesLocal = 0	--重复执行了多少次
 	local checkOnlyOne = {} --只检测一次的临时参数
 	
+	local zIndex={}	--索引中page排序用
+	
   while not self.finished do
     runCountLocal= runCountLocal+1
 --    mSleep(1000-delay)--以免占用cpu过高
 		mSleep(self.delay);
     keepScreen(true)
     for i,page in ipairs(self.pages) do
-		
+
+			local isContinue = true	--解决没有continue的问题
+			
       if _debug then
         sysLog("pre当前操作："..page.pagename)
 --				print(page)
       end
       if page:check(page.check_par) then
         keepScreen(false)
-				
-				sysLog("checkin...")
 				
 				--没有continue 关键字，所以只能加一层if判断
 				if not checkOnlyOne[page.pagename] or checkOnlyOne[page.pagename]~=1 then
@@ -175,61 +184,74 @@ function Mapping:Run()
 							checkOnlyOne[page.pagename]=1	
 						end
 					end
-				
-					if page.action then 
-						if _debug then
-							sysLog("当前操作："..page.pagename)
-						end
-						--显示当前操作
-						showTip("当前操作："..page.pagename)
-						if page.action_par then
-							if type(page.action)=="string" then
-								page.action=self.basefn[page.action]
-								page:action(page.action_par)
-							else
-								page:action(page.action_par) 
-							end
-						elseif page.action=="searchTap" then
-							page.action=self.basefn[page.action]
-							page:action(page.check_par)--和上面 执行参数不一样
-						else 
-							page:action() 
-						end
-					end
-					if page.ending then 
-						if page.ending=="finish" then
-							self.finished =true--这个索引结束
-							break
-						elseif page.ending_par then
-							page:ending(page.ending_par)
+					
+					--索引中所有page先后顺序逻辑
+					if page.sort then
+						if zIndex[page.sort] then
+							zIndex[page.sort] = zIndex[page.sort]+1
 						else
-							sysLog("type="..type(page.ending))
-							page:ending()
-						end
-						if type(page.ending_par)=="string" and page.ending_par=="finish" then
-							self.finished =true--这个索引结束
-							break
+								zIndex[page.sort] = 1
 						end
 					end
-					if page.checkin==true then
-						checkinCount=checkinCount+1
-						if checkinCount>=self.validCheckTimes then
-							--如果遍历10次都找到这个界面，就做另一个处理
-							if page.cifunc then
-								page:cifunc()--如果有处理方法，就走处理方法，没有就直接结束索引
+					if page.sort_out and zIndex[page.sort_out] and page.sort_out_num and zIndex[page.sort_out]<page.sort_out_num then
+					-- 已可以执行该page  如果这个page配置了sort_out，并且没有轮到他执行时，直接不执行
+						isContinue=false;
+					end
+					if isContinue then
+						if page.action then 
+							if _debug then
+								sysLog("当前操作："..page.pagename)
+							end
+							--显示当前操作
+							showTip("当前操作："..page.pagename)
+							if page.action_par then
+								if type(page.action)=="string" then
+									page.action=self.basefn[page.action]
+									page:action(page.action_par)
+								else
+									page:action(page.action_par) 
+								end
+							elseif page.action=="searchTap" then
+								page.action=self.basefn[page.action]
+								page:action(page.check_par)--和上面 执行参数不一样
+							else 
+								page:action() 
+							end
+						end
+						if page.ending then 
+							if page.ending=="finish" then
+								self.finished =true--这个索引结束
+								break
+							elseif page.ending_par then
+								page:ending(page.ending_par)
 							else
+								sysLog("type="..type(page.ending))
+								page:ending()
+							end
+							if type(page.ending_par)=="string" and page.ending_par=="finish" then
 								self.finished =true--这个索引结束
 								break
 							end
 						end
-					end
-					repeatTimesLocal = repeatTimesLocal+1	--检测到了页面说明执行了一次
-					if self.repeatDelay then
-						--索引配置了重复执行延迟时间
-						mSleep(self.repeatDelay)
+						if page.checkin==true then
+							checkinCount=checkinCount+1
+							if checkinCount>=self.validCheckTimes then
+								--如果遍历10次都找到这个界面，就做另一个处理
+								if page.cifunc then
+									page:cifunc()--如果有处理方法，就走处理方法，没有就直接结束索引
+								else
+									self.finished =true--这个索引结束
+									break
+								end
+							end
+						end
+						repeatTimesLocal = repeatTimesLocal+1	--检测到了页面说明执行了一次
+						if self.repeatDelay then
+							--索引配置了重复执行延迟时间
+							mSleep(self.repeatDelay)
+						end
 					end
 				end
-				
 				
         --        break
       else  --没有检测到页面 page.checkout 只能配置在标志性界面上，即打开后的下个索引出现的界面

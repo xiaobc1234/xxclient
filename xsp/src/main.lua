@@ -9,7 +9,7 @@ showTip("当前分辨率：".._fsw.."*".._fsh)
 
 deviceId= string.format('%s', getDeviceUUID())
 
-dialog("欢迎使用冰城脚本！您的设备号: "..deviceId)
+--dialog("欢迎使用冰城脚本！您的设备号: "..deviceId)
 
 mSleep(1000)
 
@@ -50,9 +50,10 @@ end
 -- 脱机版
 local function clientOnlyMain()
 
-if config['main']=='1' then
-	主线任务()
-end
+	print("main="..config['main'])
+	if config['main']=='0' then
+		主线任务()
+	end
 
 
 end

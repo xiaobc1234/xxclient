@@ -46,6 +46,9 @@ if _device == 5 then
 --  setScreenScale(720,1280)  640*1136->5c
 end
 
+
+init("",1);
+
 yes,config=showUI("ui.json");
 if yes==0 then 
     toast("您选择了取消，停止脚本运行")
@@ -53,8 +56,6 @@ if yes==0 then
 end
 
 
-
-init("",1);
 
 
 tip =  createHUD() --定义一个全局的hud
@@ -68,7 +69,7 @@ end
 function showClickView(x,y)
 	local clickView =  createHUD()
   showHUD(clickView,"",12,"0xff00ff00","0xb3000000",0,x,y,20,20)
-	mSleep(1000)
+	mSleep(200)
   hideHUD(clickView)
 end
 
