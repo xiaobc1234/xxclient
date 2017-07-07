@@ -62,7 +62,8 @@ end
 tip =  createHUD() --定义一个全局的hud
 --黑底 绿字
 function showTip(title)
-  showHUD(tip,title,12,"0xff00ff00","0xb3000000",2,0,(w_-22),h_/2,22)
+	print("w_="..w_.."--h_="..h_)
+  showHUD(tip,title,14,"0xff00ff00","0xb3000000",0,(h_/4),(w_-22),h_/2,22)
   --		hideHUD(hud)
 end
 
