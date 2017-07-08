@@ -4,6 +4,7 @@ local Public = {}
 function Public:searchTap(v)
 	if _debug then
 		sysLog("searchTap进来了")
+--		print(v)
 --		sysLog(v[1]..","..v[2]..","..v[3]..","..v[4]..","..v[5]..","..v[6]..","..v[7])
 	end
 	if v then

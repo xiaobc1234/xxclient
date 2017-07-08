@@ -19,7 +19,7 @@ Mapping.defaultoffset = 5   --默认随机点击的偏移量为5个像素点
 Mapping.checkout = false    --出错后运行程序
 Mapping.invalidCheckTimes = 15    --多少次没有检测到，走下一个索引
 Mapping.validCheckTimes = 15    --多少次检测到，仍在当前索引上，就做其他操作
-Mapping.delay = 200					--每个索引循环停留时间，避免cpu占用太高
+Mapping.delay = 500					--每个索引循环停留时间，避免cpu占用太高
 
 --建立参数的简写方法,也可全拼写入
 Mapping.parcase = {
@@ -41,7 +41,9 @@ Mapping.parcase = {
 	["s"] = "sort",	--为了让一个索引里面存在先后顺序 sort='tmp' 表示在 zIndex[tmp] = zIndex[tmp]+1  默认zIndex={}
 	["so"] = "sort_out",	--和上面sort对应，表示谁执行后才能执行他，sort_out='tmp'
 	["son"] = "sort_out_num",	--和so配合使用，当前面page被执行多少次之后，执行当前page。默认为1 if zIndex[tmp]>=1 then  执行  end
-	["p"] = "pagename"
+	["sc"]	=	"sort_clear",	--和sort对应使用 sc="tmp"  如果配置sc则执行完后将sc配置的sort设置为0次
+	["p"] = "pagename",
+	["bas"] = "before_action_sleep"	--检测到页面后，sleep多久再执行action操作 bas=1000,  1s的捡东西时间
 }
 --新建一个索引,name为可选参数,为上级索引的名字
 function Mapping:new(name)
@@ -122,11 +124,16 @@ function Mapping:AddPages( ... )
     self.pages[i]["defaultfuzzy"] = self.defaultfuzzy
     self.pages[i]["defaultoffset"] = self.defaultoffset
 		self.pages[i]["checkin"]   = self.pages[i]["checkin"] or false
+		self.pages[i]["checkin_function"]   = self.pages[i]["checkin_function"] or false
+		
 		self.pages[i]["check_only_one"]   = self.pages[i]["check_only_one"] or false
 		
 		self.pages[i]["sort"]   = self.pages[i]["sort"] or false
 		self.pages[i]["sort_out"]   = self.pages[i]["sort_out"] or false
 		self.pages[i]["sort_out_num"]   = self.pages[i]["sort_out_num"] or 1
+		self.pages[i]["sort_clear"]   = self.pages[i]["sort_clear"] or false
+		self.pages[i]["before_action_sleep"]   = self.pages[i]["before_action_sleep"] or false
+		
   end
 end
 
@@ -197,13 +204,28 @@ function Mapping:Run()
 					-- 已可以执行该page  如果这个page配置了sort_out，并且没有轮到他执行时，直接不执行
 						isContinue=false;
 					end
+					
+					-- 清零sort参数
+					if page.sort_clear and zIndex[page.sort_clear] then
+						zIndex[page.sort_clear]=false
+					end
+					
 					if isContinue then
+						--配置了action前的sleep参数
+						if page.before_action_sleep then
+							mSleep(page.before_action_sleep)
+						end
+					
 						if page.action then 
 							if _debug then
 								sysLog("当前操作："..page.pagename)
 							end
 							--显示当前操作
 							showTip("当前操作："..page.pagename)
+							
+--							调试关键输出
+--							print(page)
+							
 							if page.action_par then
 								if type(page.action)=="string" then
 									page.action=self.basefn[page.action]
@@ -214,6 +236,7 @@ function Mapping:Run()
 							elseif page.action=="searchTap" then
 								page.action=self.basefn[page.action]
 								page:action(page.check_par)--和上面 执行参数不一样
+								page.action ="searchTap"
 							else 
 								page:action() 
 							end
@@ -233,7 +256,7 @@ function Mapping:Run()
 								break
 							end
 						end
-						if page.checkin==true then
+						if page.checkin then
 							checkinCount=checkinCount+1
 							if checkinCount>=self.validCheckTimes then
 								--如果遍历10次都找到这个界面，就做另一个处理

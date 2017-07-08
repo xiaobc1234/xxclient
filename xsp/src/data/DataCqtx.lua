@@ -39,10 +39,47 @@ function Dao:主线()
     {data["主线"]["开始游戏"],{623,455}},
 		{data['主线']['完成任务'],{187,548}},
 		{data['主线']['任务栏完成'],nil,a="searchTap"},
-		{data['主线']['装备'],nil,a="searchTap"},
+		{data['主线']['装备'],nil,a="searchTap","sleep",500},
 		{data['主线']['任务栏未完成'],{110,170}},
-		{data['主线']['冲级大礼包'],{569,404}}
+		{data['主线']['冲级大礼包'],{569,404},"sleep",1000},
+		{data['主线']['主线回收装备'],nil,self.回收装备全},
+		{data['主线']['主线回收装备2'],nil,self.回收装备全},
+		{data['主线']['除魔刷新'],{188,416},s="flush"},
+		{data['主线']['除魔接任务'],{188,548},so="flush",son=5},	--除魔刷新5次之后执行除魔接任务
+		{data['主线']['除魔完成'],nil,a="searchTap"},
+		{data['主线']['除魔领奖'],nil,a="searchTap",ci=true,cifunc=self.免费除魔领奖,sc="flush"},
+		{data['主线']['主线召唤战神'],{906,42},self.主线召唤战神},
+		{data['主线']['主线强化'],{964,171},"sleep",500},
+		{data['主线']['主线强化step2'],nil,a="searchTap",s="up"},
+		{data['主线']['主线强化step2'],{1008,41},so="up",sc="up","sleep",500},
+		{data['主线']['主线个人boss'],nil,a="searchTap","sleep",500},
+		{data['主线']['主线个人boss领奖'],nil,a="searchTap",bas=2000},	--bas  2秒的捡东西时间
+		{data['主线']['主线个人boss退出'],nil,a="searchTap"},
+		{data['主线']['主线等级限制'],nil}--TODO 跳转到12次降妖除魔任务
+  }
+  mapping({
+		["pages"]=pages
+	})
+end
 
+function Dao:免费除魔领奖()
+	tap(185,574)
+end
+
+function Dao:主线召唤战神()
+  local pages={
+    {data["召唤战神"]["点击召唤战神"],nil,a="searchTap","sleep",200},
+		{data["召唤战神"]['关闭召唤战神'],{1019,82},"finish"}
+  }
+  mapping({
+		["pages"]=pages
+	})
+end
+
+function Dao:回收装备全()
+  local pages={
+    {data["回收装备"]["全部回收"],{935,527},s="back","sleep",200},
+		{data["回收装备"]['关闭回收'],nil,a="searchTap",so="back","finish"}
   }
   mapping({
 		["pages"]=pages
@@ -57,6 +94,19 @@ function Dao:升级内功()
 		{data['升级内功']['一键提升'],{857,339},s="up",one=true},
 		{data['升级内功']['关闭角色'],nil,a="searchTap",so="up","finish"}
   }
+  mapping({
+		["pages"]=pages
+	})
+end
+
+function Dao:升级称号()
+  local pages={
+    {data["升级内功"]["打开底部菜单"],{567,567},"sleep",500,one=true},
+		{data["称号"]["称号"],nil,a="searchTap","sleep",500,one=true},
+		{data['称号']['装备菜单'],nil,a="searchTap",one=true},
+		{data['称号']['提升称号'],nil,a="searchTap",s="up"},
+		{data['称号']['提升称号'],{827,40},so="up","finish"}
+		}
   mapping({
 		["pages"]=pages
 	})
