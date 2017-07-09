@@ -12,10 +12,11 @@ end
  
  function Dao:移动浮层()
   local pages={
-   {data["登录"]["移动浮层"],{775,44,775,617},a="swip","finish"}
+   {data["登录"]["移动浮层"],{775,44,775,617},a="swip","finish",co=true}
   }
   mapping({
-		["pages"]=pages
+		["pages"]=pages,
+		["invalidCheckTimes"]=5	--5次没有检测到这个界面，就结束这个索引
 	})
 end
  

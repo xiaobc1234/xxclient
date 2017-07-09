@@ -17,8 +17,8 @@ Mapping.defaultoffset = 5   --默认随机点击的偏移量为5个像素点
 
 -- 下面被用到
 Mapping.checkout = false    --出错后运行程序
-Mapping.invalidCheckTimes = 15    --多少次没有检测到，走下一个索引
-Mapping.validCheckTimes = 15    --多少次检测到，仍在当前索引上，就做其他操作
+Mapping.invalidCheckTimes = 15    --配置page的checkout 后才能使用 多少次没有检测到，走下一个索引
+Mapping.validCheckTimes = 15    --配置page的checkin 后才能使用，多少次检测到，仍在当前索引上，就做其他操作
 Mapping.delay = 300					--每个索引循环停留时间，避免cpu占用太高
 
 --建立参数的简写方法,也可全拼写入
