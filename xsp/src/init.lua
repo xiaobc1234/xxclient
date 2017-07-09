@@ -73,6 +73,13 @@ function showClickView(x,y)
   hideHUD(clickView)
 end
 
+-- 带输出的sleep
+function sleep(title,num)
+	if _debug then
+		sysLog(title..":"..num)
+	end
+	mSleep(num)
+end
 
 
 

@@ -19,7 +19,7 @@ Mapping.defaultoffset = 5   --默认随机点击的偏移量为5个像素点
 Mapping.checkout = false    --出错后运行程序
 Mapping.invalidCheckTimes = 15    --多少次没有检测到，走下一个索引
 Mapping.validCheckTimes = 15    --多少次检测到，仍在当前索引上，就做其他操作
-Mapping.delay = 500					--每个索引循环停留时间，避免cpu占用太高
+Mapping.delay = 300					--每个索引循环停留时间，避免cpu占用太高
 
 --建立参数的简写方法,也可全拼写入
 Mapping.parcase = {
@@ -43,7 +43,8 @@ Mapping.parcase = {
 	["son"] = "sort_out_num",	--和so配合使用，当前面page被执行多少次之后，执行当前page。默认为1 if zIndex[tmp]>=1 then  执行  end
 	["sc"]	=	"sort_clear",	--和sort对应使用 sc="tmp"  如果配置sc则执行完后将sc配置的sort设置为0次
 	["p"] = "pagename",
-	["bas"] = "before_action_sleep"	--检测到页面后，sleep多久再执行action操作 bas=1000,  1s的捡东西时间
+	["bas"] = "before_action_sleep",	--检测到页面后，sleep多久再执行action操作 bas=1000,  1s的捡东西时间
+	["bac"] = "before_action_check"	--执行action前检查，如果检测出来就不执行，用于中间部分页面不需要执行的情况  bac={{0xf72e2e,"10|0|0xf72e2e",95,754,22,794,68}}
 }
 --新建一个索引,name为可选参数,为上级索引的名字
 function Mapping:new(name)
@@ -133,6 +134,7 @@ function Mapping:AddPages( ... )
 		self.pages[i]["sort_out_num"]   = self.pages[i]["sort_out_num"] or 1
 		self.pages[i]["sort_clear"]   = self.pages[i]["sort_clear"] or false
 		self.pages[i]["before_action_sleep"]   = self.pages[i]["before_action_sleep"] or false
+		self.pages[i]["before_action_check"]   = self.pages[i]["before_action_check"] or false
 		
   end
 end
@@ -170,7 +172,7 @@ function Mapping:Run()
   while not self.finished do
     runCountLocal= runCountLocal+1
 --    mSleep(1000-delay)--以免占用cpu过高
-		mSleep(self.delay);
+		sleep("mapping self.delay",self.delay);
     keepScreen(true)
     for i,page in ipairs(self.pages) do
 
@@ -210,10 +212,21 @@ function Mapping:Run()
 						zIndex[page.sort_clear]=false
 					end
 					
+--					print(page.before_action_check or "---")
+					-- 如果页面中出现了before_action_check 配置的页面，就不执行action
+					if page.before_action_check then
+						for j,c in ipairs(page.before_action_check) do
+							if page:check(c) then
+								isContinue=false;
+								break;
+							end
+            end
+					end
+					
 					if isContinue then
 						--配置了action前的sleep参数
 						if page.before_action_sleep then
-							mSleep(page.before_action_sleep)
+							sleep("mapping page.before_action_sleep",page.before_action_sleep)
 						end
 					
 						if page.action then 
@@ -271,7 +284,7 @@ function Mapping:Run()
 						repeatTimesLocal = repeatTimesLocal+1	--检测到了页面说明执行了一次
 						if self.repeatDelay then
 							--索引配置了重复执行延迟时间
-							mSleep(self.repeatDelay)
+							sleep("self.repeatDelay",self.repeatDelay)
 						end
 					end
 				end
@@ -318,7 +331,7 @@ function Mapping:Run()
   end
 	-- 如果设置了索引延迟，则执行完索引之后做延迟操作
 	if self.indexDelay and tonumber(self.indexDelay) then
-		mSleep(self.indexDelay)
+		sleep("mapping self.indexDelay",self.indexDelay)
 	end
 	if nextMethod then
 		nextMethod()--如果在这个索引上执行了超过self.runCount次，就结束当前节点并进入下一个循环

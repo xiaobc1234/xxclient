@@ -7,23 +7,6 @@ local dao = require "data/DataCqtx"
 --------------------进入游戏------------------------------
 function 登录()
 	dao:登录()
-	sysLog("login end...")
-end
-
-function 角色1进入游戏()
-
-end
-
-function 角色2进入游戏()
-
-end
-
-function 角色3进入游戏()
-
-end
-
-function 角色4进入游戏()
-
 end
 
 function 返回登录()
