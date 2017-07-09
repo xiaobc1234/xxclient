@@ -134,7 +134,7 @@ end
 
 function Dao:未知暗殿刷怪()
   local pages={
-    {data["挂机"]["未知暗殿boss刷新"],nil,"sleep",30000,a="searchTap"}
+    {data["挂机"]["未知暗殿boss刷新"],nil,"sleep",60000,a="searchTap"}
 		}
   mapping({
 		["pages"]=pages
