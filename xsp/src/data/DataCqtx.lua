@@ -12,7 +12,7 @@ end
  
  function Dao:移动浮层()
   local pages={
-   {data["登录"]["移动浮层"],{775,44,775,617},a="swip","sleep",200}
+   {data["登录"]["移动浮层"],{775,44,775,617},a="swip","finish"}
   }
   mapping({
 		["pages"]=pages
