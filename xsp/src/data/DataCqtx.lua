@@ -132,9 +132,19 @@ function Dao:降妖除魔12()
 end
 
 
-function Dao:未知暗殿刷怪()
+function Dao:未知暗殿刷怪1()
   local pages={
-    {data["挂机"]["未知暗殿boss刷新"],nil,"sleep",60000,a="searchTap"}
+    {
+			data["挂机"]["未知暗殿boss刷新1"],nil,"sleep",30000,a="searchTap"}
+		}
+  mapping({
+		["pages"]=pages
+	})
+end
+function Dao:未知暗殿刷怪2()
+  local pages={
+    {
+			data["挂机"]["未知暗殿boss刷新2"],nil,"sleep",30000,a="searchTap"}
 		}
   mapping({
 		["pages"]=pages

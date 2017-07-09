@@ -22,8 +22,11 @@ function 主线()
 end
 
 
-function 刷未知暗殿()
-	dao:未知暗殿刷怪()
+function 刷未知暗殿boss1()
+	dao:未知暗殿刷怪1()
+end
+function 刷未知暗殿boss2()
+	dao:未知暗殿刷怪2()
 end
 
 function 移动浮层()

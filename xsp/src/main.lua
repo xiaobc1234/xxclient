@@ -57,7 +57,7 @@ local function clientOnlyMain()
 		主线任务()
 	end
 	if config['未知暗殿']=="0" then
-		刷未知暗殿()
+		刷未知暗殿boss1()
 	end
 
 

@@ -25,7 +25,7 @@
   },
 	{
 	  "id" : "未知暗殿",
-	  "list" : "未知暗殿刷怪",
+	  "list" : "未知暗殿刷怪1,未知暗殿刷怪2",
 	  "select" : "0",
 	  "size" : "20",
 	  "type" : "CheckBoxGroup",
