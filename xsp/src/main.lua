@@ -49,10 +49,15 @@ end
 
 -- 脱机版
 local function clientOnlyMain()
-
-	print("main="..config['main'])
+	
+	--首先移动浮层
+	移动浮层()
+--	print("main="..config['main'])
 	if config['main']=='0' then
 		主线任务()
+	end
+	if config['未知暗殿']=="0" then
+		刷未知暗殿()
 	end
 
 

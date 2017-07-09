@@ -22,6 +22,15 @@
 	  "type" : "CheckBoxGroup",
 	  "orientation" : "horizontal",
 	  "color" : "0,0,225"
+  },
+	{
+	  "id" : "未知暗殿",
+	  "list" : "未知暗殿刷怪",
+	  "select" : "0",
+	  "size" : "20",
+	  "type" : "CheckBoxGroup",
+	  "orientation" : "horizontal",
+	  "color" : "0,0,225"
   }
 	]
 }

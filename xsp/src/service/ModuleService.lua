@@ -22,6 +22,14 @@ function 主线()
 end
 
 
+function 刷未知暗殿()
+	dao:未知暗殿刷怪()
+end
+
+function 移动浮层()
+	dao:移动浮层()
+end
+
 
 --------------------领取奖励------------------------------
 function 领取离线奖励()
@@ -92,9 +100,7 @@ function 赤月打酒()
 
 end
 
-function 刷未知暗殿()
 
-end
 
 function 合成6070级装备()
 

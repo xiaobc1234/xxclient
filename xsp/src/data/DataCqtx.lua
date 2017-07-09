@@ -10,9 +10,17 @@ function Dao:new()
   return index
 end
  
+ function Dao:移动浮层()
+  local pages={
+   {data["登录"]["移动浮层"],{775,44,775,617},a="swip","sleep",200}
+  }
+  mapping({
+		["pages"]=pages
+	})
+end
+ 
 function Dao:登录()
   local pages={
-		{data["登录"]["移动浮层"],{775,44,775,617},a="swip","sleep",200},
     {data["登录"]["登录账号"],{451,390}},
 		{data['登录']['登录公告'],{569,505}},
 		{data['登录']['登录游戏'],{570,486}},
@@ -57,7 +65,7 @@ function Dao:主线()
 		{data['主线']['主线个人boss退出'],nil,a="searchTap"},
 		{data['主线']['主线等级限制'],nil},--TODO 跳转到12次降妖除魔任务
 		{data['主线']['主线称号'],nil,a="searchTap",self.升级称号},
-		{data['主线']['主线未知暗殿'],nil,self.主线结束,"finish"}
+		{data['主线']['主线未知暗殿'],{384,321},self.升级内功,"finish"}
   }
   mapping({
 		["pages"]=pages
@@ -66,9 +74,6 @@ end
 
 function Dao:免费除魔领奖()
 	tap(185,574)
-end
-function Dao:主线结束()
-	dialog("主线任务结束,请手动进入独立未知暗殿打副本劵")
 end
 
 function Dao:主线召唤战神()
@@ -126,6 +131,15 @@ function Dao:降妖除魔12()
 	})
 end
 
+
+function Dao:未知暗殿刷怪()
+  local pages={
+    {data["挂机"]["未知暗殿boss刷新"],nil,"sleep",30000,a="searchTap"}
+		}
+  mapping({
+		["pages"]=pages
+	})
+end
 
 
 
