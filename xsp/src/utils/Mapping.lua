@@ -215,19 +215,12 @@ function Mapping:Run()
 							isContinue=false;
 						end
 					else 
-						if page.sort_out and zIndex[page.sort_out] and page.sort_out_num and zIndex[page.sort_out]<page.sort_out_num then
+						if page.sort_out and not zIndex[page.sort_out] then
+							isContinue=false;
+						elseif page.sort_out and zIndex[page.sort_out] and page.sort_out_num and zIndex[page.sort_out]<page.sort_out_num then
 							-- 已可以执行该page  如果这个page配置了sort_out，并且没有轮到他执行时，直接不执行  当s执行sort_out_num次之前，so不执行 
 							isContinue=false;
 						end
-					end
-					
-					-- 清零sort参数
-					if page.sort_clear and type(page.sort_clear)=='table' then
-						for i,v in ipairs(page.sort_clear) do
-							if zIndex[v] then
-								zIndex[v]=false
-							end
-            end
 					end
 					
 --					print(page.before_action_check or "---")
@@ -245,6 +238,15 @@ function Mapping:Run()
 						--配置了action前的sleep参数
 						if page.before_action_sleep then
 							sleep("mapping page.before_action_sleep",page.before_action_sleep)
+						end
+						
+						-- 清零sort参数
+						if page.sort_clear and type(page.sort_clear)=='table' then
+							for i,v in ipairs(page.sort_clear) do
+								if zIndex[v] then
+									zIndex[v]=false
+								end
+							end
 						end
 					
 						if page.action then 

@@ -82,7 +82,7 @@ local function clientOnlyMain()
 		
 		elseif "2"==v then
 			--通天塔
-		
+			通天塔2次()
 		elseif "3"==v then
 			--膜拜城主
 		

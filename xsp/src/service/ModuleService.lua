@@ -29,6 +29,10 @@ function 除魔12()
 	dao:降妖除魔12()
 end
 
+function 通天塔2次()
+	dao:通天塔2次()
+end
+
 
 function 移动浮层()
 	dao:移动浮层()

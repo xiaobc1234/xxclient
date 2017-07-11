@@ -93,7 +93,6 @@ function Dao:降妖除魔1(t)
 		self = t
 	end
 	local pages={
-			-- TODO 需要加上除魔中的点击事件
 			{data['主线']['除魔进行中'],nil,a="searchTap",self.降妖除魔,"finish",dao=self},
 			{data['离线奖励']['离线奖励'],{1043,37}},
 			{data['离线奖励']['关闭提示'],nil,a="searchTap"},
@@ -126,7 +125,6 @@ function Dao:降妖除魔(t)
 		{data['挂机']['召唤战神'],nil,a="searchTap",self.召唤战神,so="flush",son=5,one=true,dao=self},	--召唤战神
 		{data['主线']['除魔完成'],nil,a="searchTap"},
 		{data['主线']['除魔领奖'],nil,a="searchTap",ci=true,cifunc=self.免费除魔领奖,sc={"flush"},"finish",dao=self},
-		-- 除魔进行中点击
 		{data['主线']['除魔进行中'],nil,a="searchTap","sleep",3000}	--3s点击一次
 		}
   mapping({
@@ -134,6 +132,58 @@ function Dao:降妖除魔(t)
 	})
 end
 -- ------------------------除魔  end------------------------------------
+
+-- ------------------------通天塔  start------------------------------------
+function Dao:通天塔2次()
+	for tmpi=1,2 do
+			self:通天塔1次()
+			sleep("通天塔两次间隔",1000)
+	end
+end
+function Dao:通天塔1次(t)
+	if type(t) =='table' then
+		self = t
+	end
+	local pages={
+			{data['通天塔']['通天塔界面'],nil,self.通天塔,"finish",dao=self},
+			{data['离线奖励']['离线奖励'],{1043,37}},
+			{data['离线奖励']['关闭提示'],nil,a="searchTap"},
+			{data['通天塔']['进入通天塔'],nil,self.通天塔,"finish",dao=self},
+			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,"finish",dao=self},
+			{data["除魔12"]["除魔滑动"],{94,320,94,163},p="除魔上滑",a="swip",so="kill",sr=true},
+			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,"finish",dao=self},
+			{data["除魔12"]["除魔滑动"],{94,320,94,163},p="除魔上滑",a="swip",so="kill",sr=true},
+			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,"finish",dao=self},
+			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,"finish",dao=self},
+			{data["除魔12"]["除魔滑动"],{94,163,94,320},p="除魔下滑",a="swip",so="kill",sr=true},
+			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,"finish",dao=self},
+			{data["除魔12"]["除魔滑动"],{94,163,94,320},p="除魔下滑",a="swip",so="kill",sr=true},
+			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,"finish",dao=self}
+			}
+		mapping({
+			["pages"]=pages,
+			["runCount"]=5	--如果一直停留在这个界面，超过5次，就结束这个索引
+		})
+end
+function Dao:通天塔(t)
+	if type(t) =='table' then
+		self = t
+	end
+  local pages={
+		{data['通天塔']['进入通天塔'],{190,548},"sleep",1000},
+		{data['通天塔']['通天塔界面'],{302,311},s="flush",bas=500,one=true},--左移一段距离
+		{data['挂机']['召唤战神'],nil,a="searchTap",self.召唤战神,so="flush",sc={"flush"},one=true,dao=self},	--召唤战神
+		{data['通天塔']['通天塔领取经验'],nil,a="searchTap","finish"},
+		{data['通天塔']['不在左边了'],{442,312},s="left"},
+		{data['通天塔']['自动战斗'],nil,a="searchTap",so="left",sc={"left"}}
+		--TODO 死亡后 结束
+		
+		}
+  mapping({
+		["pages"]=pages
+	})
+end
+-- ------------------------通天塔  end------------------------------------
 
 -- ------------------------膜拜城主  start------------------------------------
 function Dao:膜拜城主(t)
