@@ -1,8 +1,8 @@
 {
 	"style" : "default",
 	"config" : "save_xxclient.dat",
-	"width" : 540,
-	"height" : 960,
+	"width" : 840,
+	"height" : 900,
 	"cancelname" : "取消",
 	"okname" : "确定",
 	"views" : [
@@ -26,6 +26,40 @@
 	{
 	  "id" : "未知暗殿",
 	  "list" : "未知暗殿刷怪1,未知暗殿刷怪2",
+	  "select" : "0",
+	  "size" : "20",
+	  "type" : "CheckBoxGroup",
+	  "orientation" : "horizontal",
+	  "color" : "0,0,225"
+  },
+	{
+	  "align" : "left",
+	  "color" : "0,0,0",
+	  "size" : "20",
+	  "text" : "每日必做",
+	  "bg" : "255,255,255",
+	  "type" : "Label"
+  },
+	{
+	  "id" : "每日必做",
+	  "list" : "除魔12次,个人BOSS,通天塔,膜拜城主",
+	  "select" : "0",
+	  "size" : "20",
+	  "type" : "CheckBoxGroup",
+	  "orientation" : "horizontal",
+	  "color" : "0,0,225"
+  },
+		{
+	  "align" : "left",
+	  "color" : "0,0,0",
+	  "size" : "20",
+	  "text" : "个人BOSS",
+	  "bg" : "255,255,255",
+	  "type" : "Label"
+  },
+	{
+	  "id" : "个人BOSS",
+	  "list" : "个人BOSS牛魔,个人BOSS魔龙,个人BOSS火龙",
 	  "select" : "0",
 	  "size" : "20",
 	  "type" : "CheckBoxGroup",

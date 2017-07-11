@@ -14,9 +14,10 @@ Mapping.errorrepeat = 1     --出错后运行程序的次数
 Mapping.defaultfuzzy = 95   --默认检查函数的相似度
 Mapping.defaultoffset = 5   --默认随机点击的偏移量为5个像素点
 --Mapping.errorlog = true   --错误日志是否开启,等写完save模块,有了存储的功能,再写进去,现在不单独写了
+Mapping.checkout = false    --出错后运行程序
+
 
 -- 下面被用到
-Mapping.checkout = false    --出错后运行程序
 Mapping.invalidCheckTimes = 15    --配置page的checkout 后才能使用 多少次没有检测到，走下一个索引
 Mapping.validCheckTimes = 15    --配置page的checkin 后才能使用，多少次检测到，仍在当前索引上，就做其他操作
 Mapping.delay = 300					--每个索引循环停留时间，避免cpu占用太高
@@ -35,22 +36,24 @@ Mapping.parcase = {
   ["ap"] = "action_par",   --动作函数的参数
   ["e"]  = "ending",       --动作结束后函数
   ["ep"] = "ending_par",   --动作结束后函数的参数
-	["ci"] = "checkin",				-- 和co对应，设置后检测到多少次后，还行cifunc方法
+	["ci"] = "checkin",				-- 和co对应，设置后检测到多少次后，还在这个页面cifunc方法
 	["cifunc"] = "checkin_function",	--检测到很多次后，还在这个页面就执行后面的方法  不能是索引，只能是自定义判断执行方法，否则会出现资源浪费的问题
 	["one"] = "check_only_one",	--只执行一遍这个page  默认为false，设置为true后表示只执行一次
 	["s"] = "sort",	--为了让一个索引里面存在先后顺序 sort='tmp' 表示在 zIndex[tmp] = zIndex[tmp]+1  默认zIndex={}
 	["so"] = "sort_out",	--和上面sort对应，表示谁执行后才能执行他，sort_out='tmp'
 	["son"] = "sort_out_num",	--和so配合使用，当前面page被执行多少次之后，执行当前page。默认为1 if zIndex[tmp]>=1 then  执行  end
-	["sc"]	=	"sort_clear",	--和sort对应使用 sc="tmp"  如果配置sc则执行完后将sc配置的sort设置为0次
+	["sc"]	=	"sort_clear",	--和sort对应使用 sc={"tmp"}  如果配置sc则执行完后将sc配置的sort设置为0次，sc可以配置多个
+	['sr']	=	 "sort_reverse",	--和s,so,son配合使用，sr=false时，s执行son次后so可以执行；当sr=true时,s执行son后so不再执行  默认为 false
 	["p"] = "pagename",
 	["bas"] = "before_action_sleep",	--检测到页面后，sleep多久再执行action操作 bas=1000,  1s的捡东西时间
-	["bac"] = "before_action_check"	--执行action前检查，如果检测出来就不执行，用于中间部分页面不需要执行的情况  bac={{0xf72e2e,"10|0|0xf72e2e",95,754,22,794,68}}
+	["bac"] = "before_action_check",	--执行action前检查，如果检测出来就不执行，用于中间部分页面不需要执行的情况  bac={{0xf72e2e,"10|0|0xf72e2e",95,754,22,794,68}}
+	['dao'] = "dao_self"	--ending配置的是dao方法的时候，需要dao对象，否则获取不到dao的方法
 }
 --新建一个索引,name为可选参数,为上级索引的名字
 function Mapping:new(name)
   local index  = {}
   index.pages   = {}
-  index.runCount=nil--只有设置了才有作用，运行多少次后没有找到，就结束
+  index.runCount=nil--只有设置了才有作用，运行多少次后还在循环这个索引，就结束
 	index.errorNextMethod=nil--出现异常后执行的方法,就是上面执行多少次后都没有找到，结束索引后执行的操作
 	index.repeatTimes=nil	--这个索引执行多少遍
 	index.repeatDelay=nil	--重复执行这个索引间隔
@@ -89,7 +92,7 @@ function Mapping:AddPages( ... )
 			local n = tonumber(key);--转换成数字，如果不是就说明只手动设置
 			if n then
 				if n==1 then--参数1 直接可以获取pagename 和 check_par
-					sysLog("values[1]="..value[1])
+--					sysLog("values[1]="..value[1])
 					self.pages[i]["pagename"]   = value[1] or ""
 					self.pages[i]["check_par"]  = value[2] or false
 --					self.pages[i]["action_par"]  = value[3] or false
@@ -97,9 +100,10 @@ function Mapping:AddPages( ... )
 					key = key+1
 				end
 			end
-			
+--			sysLog("key="..key)
 			if not n or n~=1 then
 				if self.parcase[key] == "ending" then
+				
 					if value=="finish" then
 						self.pages[i][self.parcase[key]] = value
 					elseif type(value) == "string" then
@@ -133,14 +137,17 @@ function Mapping:AddPages( ... )
 		self.pages[i]["sort_out"]   = self.pages[i]["sort_out"] or false
 		self.pages[i]["sort_out_num"]   = self.pages[i]["sort_out_num"] or 1
 		self.pages[i]["sort_clear"]   = self.pages[i]["sort_clear"] or false
+		self.pages[i]["sort_reverse"]   = self.pages[i]["sort_reverse"] or false
+		
 		self.pages[i]["before_action_sleep"]   = self.pages[i]["before_action_sleep"] or false
 		self.pages[i]["before_action_check"]   = self.pages[i]["before_action_check"] or false
+		self.pages[i]["dao_self"]   = self.pages[i]["dao_self"] or false
 		
   end
 end
+   
 
-
--- 简单纠错方法，需要自行在CommonCode.lua文件中添加错误界面
+-- 简单纠错方法，需要自行在CommonCode.lua文件中添加错误界面  
 function Mapping:CommonCode()
   for i,v in ipairs(CommonCode) do
     if Public:check(v[2]) then
@@ -202,14 +209,25 @@ function Mapping:Run()
 								zIndex[page.sort] = 1
 						end
 					end
-					if page.sort_out and zIndex[page.sort_out] and page.sort_out_num and zIndex[page.sort_out]<page.sort_out_num then
-					-- 已可以执行该page  如果这个page配置了sort_out，并且没有轮到他执行时，直接不执行
-						isContinue=false;
+					if page.sort_reverse then
+						if page.sort_out and zIndex[page.sort_out] and page.sort_out_num and zIndex[page.sort_out]>=page.sort_out_num then
+						-- 当s执行sort_out_num次之后，so不再执行
+							isContinue=false;
+						end
+					else 
+						if page.sort_out and zIndex[page.sort_out] and page.sort_out_num and zIndex[page.sort_out]<page.sort_out_num then
+							-- 已可以执行该page  如果这个page配置了sort_out，并且没有轮到他执行时，直接不执行  当s执行sort_out_num次之前，so不执行 
+							isContinue=false;
+						end
 					end
 					
 					-- 清零sort参数
-					if page.sort_clear and zIndex[page.sort_clear] then
-						zIndex[page.sort_clear]=false
+					if page.sort_clear and type(page.sort_clear)=='table' then
+						for i,v in ipairs(page.sort_clear) do
+							if zIndex[v] then
+								zIndex[v]=false
+							end
+            end
 					end
 					
 --					print(page.before_action_check or "---")
@@ -259,10 +277,18 @@ function Mapping:Run()
 								self.finished =true--这个索引结束
 								break
 							elseif page.ending_par then
-								page:ending(page.ending_par)
+--								sysLog("page.dao_self="..type(page.dao_self))
+								if page.dao_self then
+									page:ending(page.dao_self,page.ending_par)
+								else
+									page:ending(page.ending_par)
+								end
 							else
-								sysLog("type="..type(page.ending))
-								page:ending()
+								if page.dao_self then
+									page:ending(page.dao_self)
+								else
+									page:ending()
+								end
 							end
 							if type(page.ending_par)=="string" and page.ending_par=="finish" then
 								self.finished =true--这个索引结束

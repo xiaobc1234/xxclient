@@ -2,6 +2,8 @@
 require "init"
 require "utils/HttpUtil"
 require "service/MainService"
+local bb = require("badboy")
+local strUtils = bb.getStrUtils()
 
 
 
@@ -57,9 +59,37 @@ local function clientOnlyMain()
 		主线任务()
 	end
 	if config['未知暗殿']=="0" then
-		刷未知暗殿boss1()
+		刷未知暗殿boss(1)-- 刷排序中的第一个boss
+	end
+	
+	print('config["每日必做"]='..config['每日必做'])
+	
+	local 每日必做 = config['每日必做'];
+	local must={}
+	if string.find(每日必做,"@") then
+		must= strUtils.seperate(每日必做,"@")
+	else
+		must = {每日必做}
 	end
 
+	print(must)
+	for i,v in ipairs(must) do
+		if "0"==v then
+			--除魔12
+			除魔12()
+		elseif "1"==v then
+			--个人BOSS
+		
+		elseif "2"==v then
+			--通天塔
+		
+		elseif "3"==v then
+			--膜拜城主
+		
+		end
+  end
+	
+	
 
 end
 

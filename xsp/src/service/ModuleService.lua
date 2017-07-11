@@ -3,7 +3,6 @@ local dao = require "data/DataCqtx"
 
 
 
-
 --------------------进入游戏------------------------------
 function 登录()
 	dao:登录()
@@ -22,12 +21,14 @@ function 主线()
 end
 
 
-function 刷未知暗殿boss1()
-	dao:未知暗殿刷怪1()
+function 刷未知暗殿boss(num)
+	dao:未知暗殿刷怪(num)
 end
-function 刷未知暗殿boss2()
-	dao:未知暗殿刷怪2()
+
+function 除魔12()
+	dao:降妖除魔12()
 end
+
 
 function 移动浮层()
 	dao:移动浮层()

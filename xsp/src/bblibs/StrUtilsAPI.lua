@@ -612,9 +612,9 @@ function seperate(str, divider)  --Separates @str on @divider
   local n=1
   repeat
     if n==1 then
-      start[n], endS[n] = find(str, divider)
+      start[n], endS[n] = string.find(str, divider)
     else
-      start[n], endS[n] = find(str, divider, endS[n-1]+1)
+      start[n], endS[n] = string.find(str, divider, endS[n-1]+1)
         end
     n=n+1
   until start[n-1]==nil
