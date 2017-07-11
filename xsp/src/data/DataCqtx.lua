@@ -137,7 +137,7 @@ end
 function Dao:通天塔2次()
 	for tmpi=1,2 do
 			self:通天塔1次()
-			sleep("通天塔两次间隔",1000)
+			sleep("通天塔两次间隔",3500)--领奖这里总是很卡
 	end
 end
 function Dao:通天塔1次(t)
@@ -171,8 +171,9 @@ function Dao:通天塔(t)
 	end
   local pages={
 		{data['通天塔']['进入通天塔'],{190,548},"sleep",1000},
-		{data['通天塔']['通天塔界面'],{302,311},s="flush",bas=500,one=true},--左移一段距离
-		{data['挂机']['召唤战神'],nil,a="searchTap",self.召唤战神,so="flush",sc={"flush"},one=true,dao=self},	--召唤战神
+		{data['通天塔']['通天塔界面'],{302,311},s="flush",bas=800,one=true},--左移一段距离
+		-- TODO 不知道为什么没有找战神
+		{data['挂机']['召唤战神'],nil,a="searchTap",self.召唤战神,bas=800,so="flush",sc={"flush"},one=true,dao=self},	--召唤战神
 		{data['通天塔']['通天塔领取经验'],nil,a="searchTap","finish"},
 		{data['通天塔']['不在左边了'],{442,312},s="left"},
 		{data['通天塔']['自动战斗'],nil,a="searchTap",so="left",sc={"left"}}

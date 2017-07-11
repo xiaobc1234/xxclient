@@ -186,7 +186,7 @@ function Mapping:Run()
 			local isContinue = true	--解决没有continue的问题
 			
       if _debug then
-        sysLog("pre当前操作："..page.pagename)
+        sysLog("pre操作："..page.pagename)
 --				print(page)
       end
       if page:check(page.check_par) then
@@ -201,14 +201,11 @@ function Mapping:Run()
 						end
 					end
 					
-					--索引中所有page先后顺序逻辑
-					if page.sort then
-						if zIndex[page.sort] then
-							zIndex[page.sort] = zIndex[page.sort]+1
-						else
-								zIndex[page.sort] = 1
-						end
-					end
+--					print(zIndex)
+--					if zIndex['flush'] then
+--						print(page)
+--					end
+					
 					if page.sort_reverse then
 						if page.sort_out and zIndex[page.sort_out] and page.sort_out_num and zIndex[page.sort_out]>=page.sort_out_num then
 						-- 当s执行sort_out_num次之后，so不再执行
@@ -234,10 +231,20 @@ function Mapping:Run()
             end
 					end
 					
+					
 					if isContinue then
 						--配置了action前的sleep参数
 						if page.before_action_sleep then
 							sleep("mapping page.before_action_sleep",page.before_action_sleep)
+						end
+						
+						--索引中所有page先后顺序逻辑
+						if page.sort then
+							if zIndex[page.sort] then
+								zIndex[page.sort] = zIndex[page.sort]+1
+							else
+									zIndex[page.sort] = 1
+							end
 						end
 						
 						-- 清零sort参数
