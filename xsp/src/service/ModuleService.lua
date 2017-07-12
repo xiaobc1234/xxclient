@@ -2,6 +2,9 @@ local dao = require "data/DataCqtx"
 
 
 
+function test()
+	dao:test()
+end
 
 --------------------进入游戏------------------------------
 function 登录()

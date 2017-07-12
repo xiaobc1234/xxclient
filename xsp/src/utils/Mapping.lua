@@ -190,16 +190,7 @@ function Mapping:Run()
 --				print(page)
       end
       if page:check(page.check_par) then
-        keepScreen(false)
-				
-				--没有continue 关键字，所以只能加一层if判断
-				if not checkOnlyOne[page.pagename] or checkOnlyOne[page.pagename]~=1 then
-					--	只检查一次设置：
-					if page.check_only_one== true then
-						if checkOnlyOne[page.pagename]~=1 then
-							checkOnlyOne[page.pagename]=1	
-						end
-					end
+					keepScreen(false)
 					
 --					print(zIndex)
 --					if zIndex['flush'] then
@@ -212,11 +203,14 @@ function Mapping:Run()
 							isContinue=false;
 						end
 					else 
+						
 						if page.sort_out and not zIndex[page.sort_out] then
+--							print(page.sort_out.."-"..zIndex[page.sort_out])
 							isContinue=false;
 						elseif page.sort_out and zIndex[page.sort_out] and page.sort_out_num and zIndex[page.sort_out]<page.sort_out_num then
 							-- 已可以执行该page  如果这个page配置了sort_out，并且没有轮到他执行时，直接不执行  当s执行sort_out_num次之前，so不执行 
 							isContinue=false;
+--							print(page.sort_out.."=-="..zIndex[page.sort_out])
 						end
 					end
 					
@@ -231,98 +225,106 @@ function Mapping:Run()
             end
 					end
 					
-					
 					if isContinue then
-						--配置了action前的sleep参数
-						if page.before_action_sleep then
-							sleep("mapping page.before_action_sleep",page.before_action_sleep)
-						end
-						
-						--索引中所有page先后顺序逻辑
-						if page.sort then
-							if zIndex[page.sort] then
-								zIndex[page.sort] = zIndex[page.sort]+1
-							else
-									zIndex[page.sort] = 1
-							end
-						end
-						
-						-- 清零sort参数
-						if page.sort_clear and type(page.sort_clear)=='table' then
-							for i,v in ipairs(page.sort_clear) do
-								if zIndex[v] then
-									zIndex[v]=false
-								end
-							end
-						end
 					
-						if page.action then 
-							if _debug then
-								sysLog("当前操作："..page.pagename)
+						--没有continue 关键字，所以只能加一层if判断
+						if not checkOnlyOne[page.pagename] or checkOnlyOne[page.pagename]~=1 then
+						--	只检查一次设置：
+							if page.check_only_one== true then
+								if checkOnlyOne[page.pagename]~=1 then
+									checkOnlyOne[page.pagename]=1	
+								end
 							end
-							--显示当前操作
-							showTip("当前操作："..page.pagename)
+							--配置了action前的sleep参数
+							if page.before_action_sleep then
+								sleep("mapping page.before_action_sleep",page.before_action_sleep)
+							end
 							
---							调试关键输出
---							print(page)
+							--索引中所有page先后顺序逻辑
+							if page.sort then
+								if zIndex[page.sort] then
+									zIndex[page.sort] = zIndex[page.sort]+1
+								else
+										zIndex[page.sort] = 1
+								end
+							end
 							
-							if page.action_par then
-								if type(page.action)=="string" then
+							-- 清零sort参数
+							if page.sort_clear and type(page.sort_clear)=='table' then
+								for i,v in ipairs(page.sort_clear) do
+									if zIndex[v] then
+										zIndex[v]=false
+									end
+								end
+							end
+						
+							if page.action then 
+								if _debug then
+									sysLog("当前操作："..page.pagename)
+								end
+								--显示当前操作
+								showTip("当前操作："..page.pagename)
+								
+	--							调试关键输出
+	--							print(page)
+								
+								if page.action_par then
+									if type(page.action)=="string" then
+										page.action=self.basefn[page.action]
+										page:action(page.action_par)
+									else
+										page:action(page.action_par) 
+									end
+								elseif page.action=="searchTap" then
 									page.action=self.basefn[page.action]
-									page:action(page.action_par)
-								else
-									page:action(page.action_par) 
-								end
-							elseif page.action=="searchTap" then
-								page.action=self.basefn[page.action]
-								page:action(page.check_par)--和上面 执行参数不一样
-								page.action ="searchTap"
-							else 
-								page:action() 
-							end
-						end
-						if page.ending then 
-							if page.ending=="finish" then
-								self.finished =true--这个索引结束
-								break
-							elseif page.ending_par then
---								sysLog("page.dao_self="..type(page.dao_self))
-								if page.dao_self then
-									page:ending(page.dao_self,page.ending_par)
-								else
-									page:ending(page.ending_par)
-								end
-							else
-								if page.dao_self then
-									page:ending(page.dao_self)
-								else
-									page:ending()
+									page:action(page.check_par)--和上面 执行参数不一样
+									page.action ="searchTap"
+								else 
+									page:action() 
 								end
 							end
-							if type(page.ending_par)=="string" and page.ending_par=="finish" then
-								self.finished =true--这个索引结束
-								break
-							end
-						end
-						if page.checkin then
-							checkinCount=checkinCount+1
-							if checkinCount>=self.validCheckTimes then
-								--如果遍历10次都找到这个界面，就做另一个处理
-								if page.checkin_function then
-									page:checkin_function()--如果有处理方法，就走处理方法，没有就直接结束索引
+							if page.ending then 
+								if page.ending=="finish" then
+									self.finished =true--这个索引结束
+									break
+								elseif page.ending_par then
+	--								sysLog("page.dao_self="..type(page.dao_self))
+									if page.dao_self then
+										page:ending(page.dao_self,page.ending_par)
+									else
+										page:ending(page.ending_par)
+									end
 								else
+									if page.dao_self then
+										page:ending(page.dao_self)
+									else
+										page:ending()
+									end
+								end
+								if type(page.ending_par)=="string" and page.ending_par=="finish" then
 									self.finished =true--这个索引结束
 									break
 								end
 							end
-						end
-						repeatTimesLocal = repeatTimesLocal+1	--检测到了页面说明执行了一次
-						if self.repeatDelay then
-							--索引配置了重复执行延迟时间
-							sleep("self.repeatDelay",self.repeatDelay)
+							if page.checkin then
+								checkinCount=checkinCount+1
+								if checkinCount>=self.validCheckTimes then
+									--如果遍历10次都找到这个界面，就做另一个处理
+									if page.checkin_function then
+										page:checkin_function()--如果有处理方法，就走处理方法，没有就直接结束索引
+									else
+										self.finished =true--这个索引结束
+										break
+									end
+								end
+							end
+							repeatTimesLocal = repeatTimesLocal+1	--检测到了页面说明执行了一次
+							if self.repeatDelay then
+								--索引配置了重复执行延迟时间
+								sleep("self.repeatDelay",self.repeatDelay)
+							end
 						end
 					end
-				end
 				
         --        break
       else  --没有检测到页面 page.checkout 只能配置在标志性界面上，即打开后的下个索引出现的界面

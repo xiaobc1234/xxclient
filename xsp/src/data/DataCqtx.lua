@@ -4,6 +4,17 @@ local data = require "data/Data"
 
 local Dao = {}
 
+
+function Dao:test()
+	local pages={
+	 {data['test']['test1'],{302,311},s="flush",bas=800},--左移一段距离
+	 {data['test']['test2'],nil,a="searchTap",self.召唤战神,bas=800,so="flush",son=2,sc={"flush"},one=true,dao=self}	--召唤战神
+  }
+  mapping({
+		["pages"]=pages
+	})
+end
+
 function Dao:new()
   local index  = {}
   setmetatable(index,{__index = self})

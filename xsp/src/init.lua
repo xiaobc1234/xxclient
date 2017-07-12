@@ -48,7 +48,7 @@ if _device == 5 then
 end
 
 
-init("",1);
+init("",1);-- 0表示竖屏
 
 yes,config=showUI("ui.json");
 if yes==0 then 

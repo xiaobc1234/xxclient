@@ -54,6 +54,7 @@ local function clientOnlyMain()
 	
 	--首先移动浮层
 	移动浮层()
+
 --	print("main="..config['main'])
 	if config['main']=='0' then
 		主线任务()
@@ -62,7 +63,7 @@ local function clientOnlyMain()
 		刷未知暗殿boss(1)-- 刷排序中的第一个boss
 	end
 	
-	print('config["每日必做"]='..config['每日必做'])
+--	print('config["每日必做"]='..config['每日必做'])
 	
 	local 每日必做 = config['每日必做'];
 	local must={}
@@ -89,6 +90,10 @@ local function clientOnlyMain()
 		end
   end
 	
+	--测试用
+--	for tmpi=1,2 do
+--     test()     
+--  end
 	
 
 end
