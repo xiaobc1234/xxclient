@@ -122,7 +122,7 @@ function Dao:降妖除魔1(t)
 			}
 		mapping({
 			["pages"]=pages,
-			["runCount"]=5	--如果一直停留在这个界面，超过5次，就结束这个索引
+			["runCount"]=3	--如果一直停留在这个界面，超过5次，就结束这个索引
 		})
 end
 function Dao:降妖除魔(t)
@@ -173,7 +173,7 @@ function Dao:通天塔1次(t)
 			}
 		mapping({
 			["pages"]=pages,
-			["runCount"]=5	--如果一直停留在这个界面，超过5次，就结束这个索引
+			["runCount"]=3	--如果一直停留在这个界面，超过5次，就结束这个索引
 		})
 end
 function Dao:通天塔(t)
@@ -183,7 +183,6 @@ function Dao:通天塔(t)
   local pages={
 		{data['通天塔']['进入通天塔'],{190,548},"sleep",1000},
 		{data['通天塔']['通天塔界面'],{302,311},s="flush",bas=800,one=true},--左移一段距离
-		-- TODO 不知道为什么没有找战神
 		{data['挂机']['召唤战神'],nil,a="searchTap",self.召唤战神,bas=800,so="flush",sc={"flush"},one=true,dao=self},	--召唤战神
 		{data['通天塔']['通天塔领取经验'],nil,a="searchTap","finish"},
 		{data['通天塔']['不在左边了'],{442,312},s="left"},
@@ -198,6 +197,21 @@ end
 -- ------------------------通天塔  end------------------------------------
 
 -- ------------------------膜拜城主  start------------------------------------
+
+function Dao:每日必做_膜拜城主(t)
+		if type(t) =='table' then
+		self = t
+	end
+	local pages={
+			{data['每日必做']['每日必做'],nil,a="searchTap","sleep",500},
+--			{data['每日必做']['膜拜城主已完成'],{1010,41},"finish"},
+			{data['每日必做']['膜拜城主'],nil,a="searchTap",self.膜拜城主,dao=self,"finish"}
+			}
+		mapping({
+			["pages"]=pages
+		})
+end
+
 function Dao:膜拜城主(t)
 if type(t) =='table' then
 		self = t
@@ -211,6 +225,133 @@ if type(t) =='table' then
 		})
 end
 -- ------------------------膜拜城主  end------------------------------------
+
+
+-- ------------------------个人BOSS  start------------------------------------
+function Dao:个人BOSS_赤月(t)
+	if type(t) =='table' then
+		self = t
+	end
+	local pages={
+			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",500},
+			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap"},
+			{data['个人BOSS']['赤月恶魔'],nil,a="searchTap",s="up","sleep",1000},
+			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
+			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
+			}
+		mapping({
+			["pages"]=pages
+		})
+end
+
+function Dao:个人BOSS_祖玛(t)
+	if type(t) =='table' then
+		self = t
+	end
+	local pages={
+			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",500},
+			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap"},
+			{data['个人BOSS']['祖玛教主'],nil,a="searchTap",s="up","sleep",1000},
+			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
+			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
+			}
+		mapping({
+			["pages"]=pages
+		})
+end
+function Dao:个人BOSS_牛魔(t)
+	if type(t) =='table' then
+		self = t
+	end
+	local pages={
+			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",500},
+			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap"},
+			{data['个人BOSS']['牛魔王'],nil,a="searchTap",s="up","sleep",1000},
+			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
+			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
+			}
+		mapping({
+			["pages"]=pages
+		})
+end
+function Dao:个人BOSS_魔龙(t)
+	if type(t) =='table' then
+		self = t
+	end
+	local pages={
+			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",500},
+			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap"},
+			{data['个人BOSS']['魔龙教主'],nil,a="searchTap",s="up","sleep",1000},
+			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
+			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
+			}
+		mapping({
+			["pages"]=pages
+		})
+end
+function Dao:个人BOSS_火龙(t)
+	if type(t) =='table' then
+		self = t
+	end
+	local pages={
+			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",500},
+			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap"},
+			{data['个人BOSS']['火龙'],nil,a="searchTap",s="up","sleep",1000},
+			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
+			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
+			}
+		mapping({
+			["pages"]=pages
+		})
+end
+
+function Dao:挑战BOSS(t)
+	if type(t) =='table' then
+		self = t
+	end
+	local pages={
+			{data['通天塔']['自动战斗'],nil,a="searchTap","sleep",1500,s="click"},
+			{data['个人BOSS']['召唤战神'],nil,a="searchTap",self.召唤战神,bas=1800,one=true,so="click",sc={"click"},dao=self},	--召唤战神
+			{data['主线']['主线个人boss领奖'],nil,a="searchTap",bas=14000,s="up"},	--bas  10秒的捡东西时间
+			{data['主线']['主线个人boss退出'],nil,a="searchTap","finish",so="up",sc={'up'}}
+			}
+		mapping({
+			["pages"]=pages
+		})
+end
+-- ------------------------个人BOSS  end------------------------------------
+
+
+-- ------------------------领取日常奖励  start------------------------------------
+function Dao:每日必做_领取奖励(t)
+		if type(t) =='table' then
+		self = t
+	end
+	local pages={
+			{data['每日必做']['每日必做'],nil,a="searchTap","sleep",500},
+			{data['每日必做']['领取必做奖励'],nil,self.领取必做奖励,dao=self,"finish"}
+			}
+		mapping({
+			["pages"]=pages
+		})
+end
+--领取必做奖励
+function Dao:领取必做奖励(t)
+		tap(716,484)
+		sleep('领取奖励',300)
+		tap(570,484)
+		sleep('领取奖励',300)
+		tap(423,484)
+		sleep('领取奖励',300)
+		tap(279,484)
+		sleep('领取奖励',300)
+		tap(864,484)
+		sleep('领取奖励',300)
+		tap(864,484)
+		sleep('领取奖励',300)
+		tap(1010,42)--关闭菜单
+end
+-- ------------------------领取日常奖励  end------------------------------------
 
 function Dao:未知暗殿刷怪(num)
   local pages=nil

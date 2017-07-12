@@ -80,13 +80,37 @@ local function clientOnlyMain()
 			除魔12()
 		elseif "1"==v then
 			--个人BOSS
-		
+			每日必做_个人BOSS()
 		elseif "2"==v then
 			--通天塔
 			通天塔2次()
 		elseif "3"==v then
 			--膜拜城主
-		
+			膜拜城主()
+		end
+  end
+	-- 领取每日必做奖励
+	领取每日必做奖励()
+	
+	--下面是打经验的脚本
+	local 个人BOSS = config['个人BOSS'];
+	local boss={}
+	if string.find(个人BOSS,"@") then
+		boss= strUtils.seperate(个人BOSS,"@")
+	else
+		boss = {个人BOSS}
+	end
+	print(boss)
+	for i,v in ipairs(boss) do
+		if "0"==v then
+			--牛魔
+			个人BOSS牛魔()
+		elseif "1"==v then
+			--魔龙
+			个人BOSS魔龙()
+		elseif "2"==v then
+			--火龙
+			个人BOSS火龙()
 		end
   end
 	
