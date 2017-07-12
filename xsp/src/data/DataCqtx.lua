@@ -132,8 +132,8 @@ function Dao:降妖除魔(t)
 
   local pages={
 		{data['主线']['除魔刷新'],{188,416},s="flush"},
-		{data['主线']['除魔接任务'],{188,548},"sleep",1000,so="flush",son=5},	--除魔刷新5次之后执行除魔接任务
-		{data['挂机']['召唤战神'],nil,a="searchTap",self.召唤战神,so="flush",son=5,one=true,dao=self},	--召唤战神
+		{data['主线']['除魔接任务'],{188,548},"sleep",5000,s="up",so="flush",sc={"flush"},son=5},	--除魔刷新5次之后执行除魔接任务
+		{data['挂机']['召唤战神'],nil,a="searchTap",self.召唤战神,so="up",sc={"up"},one=true,dao=self},	--召唤战神
 		{data['主线']['除魔完成'],nil,a="searchTap"},
 		{data['主线']['除魔领奖'],nil,a="searchTap",ci=true,cifunc=self.免费除魔领奖,sc={"flush"},"finish",dao=self},
 		{data['主线']['除魔进行中'],nil,a="searchTap","sleep",3000}	--3s点击一次
