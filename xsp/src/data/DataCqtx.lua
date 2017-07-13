@@ -372,12 +372,11 @@ function Dao:未知暗殿刷怪(num)
 		--合成装备
 		{data["升级内功"]["打开底部菜单"],{567,567},"sleep",500},
 		{data['合成']['底部装备菜单'],nil,a="searchTap",so="menu",sr=true,"sleep",500},
-		{data['合成']['底部合成菜单'],nil,a="searchTap",s="menu"},
+		{data['合成']['底部合成菜单'],nil,a="searchTap",s="menu","sleep",1500},
 		{data['合成']['合成装备手镯'],nil,a="searchTap"},
 		{data['合成']['合成按钮'],nil,a="searchTap",one=true,s="btn","sleep",1000},
-		{data['合成']['合成70级装备'],nil,a="searchTap",one=true,so="btn",onec="合成按钮"},
-		{data['合成']['合成关闭'],nil,a="searchTap",so="btn",son=2,onec="合成70级装备","sleep",2000}
-		
+		{data['合成']['合成70级装备'],nil,a="searchTap",one=true,so="btn",onec={"合成按钮"}},
+		{data['合成']['合成关闭'],nil,a="searchTap",so="btn",son=2,onec={"合成70级装备","合成按钮"},"sleep",2000}
 	}
 	if num==1 then
 		table.insert(pages,{data["挂机"]["未知暗殿boss刷新1"],nil,"sleep",30000,a="searchTap",sc={"btn","menu"}})
