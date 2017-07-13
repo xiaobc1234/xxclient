@@ -233,8 +233,8 @@ function Dao:个人BOSS_赤月(t)
 		self = t
 	end
 	local pages={
-			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",500},
-			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap"},
+			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",1500},
+			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap","sleep",500},
 			{data['个人BOSS']['赤月恶魔'],nil,a="searchTap",s="up","sleep",1000},
 			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
 			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
@@ -249,8 +249,8 @@ function Dao:个人BOSS_祖玛(t)
 		self = t
 	end
 	local pages={
-			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",500},
-			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap"},
+			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",1500},
+			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap","sleep",500},
 			{data['个人BOSS']['祖玛教主'],nil,a="searchTap",s="up","sleep",1000},
 			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
 			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
@@ -264,8 +264,8 @@ function Dao:个人BOSS_牛魔(t)
 		self = t
 	end
 	local pages={
-			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",500},
-			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap"},
+			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",1500},
+			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap","sleep",500},
 			{data['个人BOSS']['牛魔王'],nil,a="searchTap",s="up","sleep",1000},
 			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
 			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
@@ -279,8 +279,8 @@ function Dao:个人BOSS_魔龙(t)
 		self = t
 	end
 	local pages={
-			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",500},
-			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap"},
+			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",1500},
+			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap","sleep",500},
 			{data['个人BOSS']['魔龙教主'],nil,a="searchTap",s="up","sleep",1000},
 			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
 			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
@@ -294,8 +294,8 @@ function Dao:个人BOSS_火龙(t)
 		self = t
 	end
 	local pages={
-			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",500},
-			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap"},
+			{data['个人BOSS']['个人BOSS'],nil,a="searchTap","sleep",1500},
+			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap","sleep",500},
 			{data['个人BOSS']['火龙'],nil,a="searchTap",s="up","sleep",1000},
 			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
 			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
