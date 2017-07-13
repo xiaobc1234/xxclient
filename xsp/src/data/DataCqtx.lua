@@ -353,21 +353,43 @@ function Dao:领取必做奖励(t)
 end
 -- ------------------------领取日常奖励  end------------------------------------
 
+-- ------------------------未知暗殿刷怪  end------------------------------------
+function Dao:未知暗殿召唤战神(t)
+	if type(t) =='table' then
+		self = t
+	end
+  local pages={
+    {data["挂机"]["未知暗殿召唤战神"],nil,a="searchTap",self.召唤战神,dao=self,"finish"}
+  }
+  mapping({
+		["pages"]=pages,
+		["runCount"]=3	--如果一直停留在这个界面，超过3次，就结束这个索引
+	})
+end
+
 function Dao:未知暗殿刷怪(num)
-  local pages=nil
+  local pages={
+		--合成装备
+		{data["升级内功"]["打开底部菜单"],{567,567},"sleep",500},
+		{data['合成']['底部装备菜单'],nil,a="searchTap",so="menu",sr=true,"sleep",500},
+		{data['合成']['底部合成菜单'],nil,a="searchTap",s="menu"},
+		{data['合成']['合成装备手镯'],nil,a="searchTap"},
+		{data['合成']['合成按钮'],nil,a="searchTap",one=true,s="btn","sleep",1000},
+		{data['合成']['合成70级装备'],nil,a="searchTap",one=true,so="btn",onec="合成按钮"},
+		{data['合成']['合成关闭'],nil,a="searchTap",so="btn",son=2,onec="合成70级装备","sleep",2000}
+		
+	}
 	if num==1 then
-		pages={
-			{data["挂机"]["未知暗殿boss刷新1"],nil,"sleep",30000,a="searchTap"}
-		}
+		table.insert(pages,{data["挂机"]["未知暗殿boss刷新1"],nil,"sleep",30000,a="searchTap",sc={"btn","menu"}})
 	elseif num==2 then
-		pages={
-			{data["挂机"]["未知暗殿boss刷新2"],nil,"sleep",30000,a="searchTap"}
-		}
+		table.insert(pages,{data["挂机"]["未知暗殿boss刷新2"],nil,"sleep",30000,a="searchTap",sc={"btn","menu"}})
 	end
   mapping({
 		["pages"]=pages
 	})
 end
+-- ------------------------未知暗殿刷怪  end------------------------------------
+
 
 function Dao:召唤战神(t)
 	if type(t) =='table' then

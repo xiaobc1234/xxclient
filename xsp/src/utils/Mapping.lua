@@ -39,6 +39,7 @@ Mapping.parcase = {
 	["ci"] = "checkin",				-- ci=true  和co对应，设置后检测到多少次后，还在这个页面,执行cifunc方法，如果不配置cifunc，结束索引
 	["cifunc"] = "checkin_function",	--检测到很多次后，还在这个页面就执行后面的方法  不能是索引，只能是自定义判断执行方法，否则会出现资源浪费的问题
 	["one"] = "check_only_one",	--只执行一遍这个page  默认为false，设置为true后表示只执行一次
+	["onec"] = "check_only_one_clear",	--如onec="页面1"   当有这个配置时，执行时将页面1的一次校验去除（使原本只执行一次的page，可以再次执行一次）
 	["s"] = "sort",	--为了让一个索引里面存在先后顺序 sort='tmp' 表示在 zIndex[tmp] = zIndex[tmp]+1  默认zIndex={}
 	["so"] = "sort_out",	--和上面sort对应，表示谁执行后才能执行他，sort_out='tmp'
 	["son"] = "sort_out_num",	--和so配合使用，当前面page被执行多少次之后，执行当前page。默认为1 if zIndex[tmp]>=1 then  执行  end
@@ -132,6 +133,7 @@ function Mapping:AddPages( ... )
 		self.pages[i]["checkin_function"]   = self.pages[i]["checkin_function"] or false
 		
 		self.pages[i]["check_only_one"]   = self.pages[i]["check_only_one"] or false
+		self.pages[i]["check_only_one_clear"]   = self.pages[i]["check_only_one_clear"] or false
 		
 		self.pages[i]["sort"]   = self.pages[i]["sort"] or false
 		self.pages[i]["sort_out"]   = self.pages[i]["sort_out"] or false
@@ -142,6 +144,8 @@ function Mapping:AddPages( ... )
 		self.pages[i]["before_action_sleep"]   = self.pages[i]["before_action_sleep"] or false
 		self.pages[i]["before_action_check"]   = self.pages[i]["before_action_check"] or false
 		self.pages[i]["dao_self"]   = self.pages[i]["dao_self"] or false
+		
+		
 		
   end
 end
@@ -235,6 +239,11 @@ function Mapping:Run()
 									checkOnlyOne[page.pagename]=1	
 								end
 							end
+							--	清除one 一次限制,使之能再执行一次
+							if page.check_only_one_clear then
+								checkOnlyOne[page.check_only_one_clear]=0
+							end
+							
 							--配置了action前的sleep参数
 							if page.before_action_sleep then
 								sleep("mapping page.before_action_sleep",page.before_action_sleep)

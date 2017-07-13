@@ -23,6 +23,9 @@ function 主线()
 	dao:主线()
 end
 
+function 未知暗殿召唤战神()
+	dao:未知暗殿召唤战神()
+end
 function 刷未知暗殿boss(num)
 	dao:未知暗殿刷怪(num)
 end

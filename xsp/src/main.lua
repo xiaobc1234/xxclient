@@ -60,7 +60,12 @@ local function clientOnlyMain()
 		主线任务()
 	end
 	if config['未知暗殿']=="0" then
+		--先召唤战神
+		未知暗殿召唤战神()
 		刷未知暗殿boss(1)-- 刷排序中的第一个boss
+	elseif config['未知暗殿']=="1" then
+		未知暗殿召唤战神()
+		刷未知暗殿boss(2)-- 刷排序中的第一个boss
 	end
 	
 --	print('config["每日必做"]='..config['每日必做'])
