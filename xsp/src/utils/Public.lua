@@ -15,6 +15,23 @@ function Public:searchTap(v)
 	end
 end
 
+--搜索点击   点击偏移 a_p
+function Public:searchTap(v,a_p)
+	if _debug then
+		sysLog("searchTap进来了")
+	end
+	if v then
+		x, y = findMultiColorInRegionFuzzy(v[1],v[2],v[3],v[4],v[5],v[6],v[7])
+		if x>-1 then
+			if a_p  and type(a_p)=='table' then
+				Public:tap(x+(a_p[1]),y+a_p[2])
+			else
+				Public:tap(x,y)
+			end
+		end
+	end
+end
+
 function Public:check(v)
 --sysLog("vvvvvv"..v[1]..","..v[2]..","..v[3]..","..v[4]..","..v[5]..","..v[6]..","..v[7])
 	x, y = findMultiColorInRegionFuzzy(v[1],v[2],v[3],v[4],v[5],v[6],v[7])

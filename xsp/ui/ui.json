@@ -65,6 +65,31 @@
 	  "type" : "CheckBoxGroup",
 	  "orientation" : "horizontal",
 	  "color" : "0,0,225"
+  },{
+	  "align" : "left",
+	  "color" : "0,0,0",
+	  "size" : "20",
+	  "text" : "奖励领取",
+	  "bg" : "255,255,255",
+	  "type" : "Label"
+  },
+	{
+	  "id" : "回收装备全",
+	  "list" : "回收装备全",
+	  "select" : "0",
+	  "size" : "20",
+	  "type" : "CheckBoxGroup",
+	  "orientation" : "horizontal",
+	  "color" : "0,0,225"
+  },
+	{
+	  "id" : "领取回收奖励",
+	  "list" : "领取回收奖励",
+	  "select" : "0",
+	  "size" : "20",
+	  "type" : "CheckBoxGroup",
+	  "orientation" : "horizontal",
+	  "color" : "0,0,225"
   }
 	]
 }

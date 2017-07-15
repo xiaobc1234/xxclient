@@ -16,3 +16,10 @@ function 每日必做_个人BOSS()
 	个人BOSS祖玛()
 end
 
+function 未知暗殿挂机(num)
+		进入未知暗殿()
+		sleep("进入未知暗殿sleep",2000)
+		未知暗殿召唤战神()
+		刷未知暗殿boss(num)-- 刷排序中的第一个boss
+end
+

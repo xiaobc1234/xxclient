@@ -108,6 +108,7 @@ function Dao:降妖除魔1(t)
 			{data['离线奖励']['离线奖励'],{1043,37}},
 			{data['离线奖励']['关闭提示'],nil,a="searchTap"},
 			{data['主线']['除魔刷新'],nil,self.降妖除魔,"finish",dao=self},
+			{data['除魔12']['左侧栏变强'],{40,130},"sleep",800},
 			{data["除魔12"]["除魔可接"],nil,a="searchTap",s="kill",self.降妖除魔,"finish",dao=self},
 			{data["除魔12"]["除魔滑动"],{94,320,94,163},p="除魔上滑",a="swip",so="kill",sr=true},
 			{data["除魔12"]["除魔可接"],nil,a="searchTap",s="kill",self.降妖除魔,"finish",dao=self},
@@ -160,20 +161,20 @@ function Dao:通天塔1次(t)
 			{data['离线奖励']['离线奖励'],{1043,37}},
 			{data['离线奖励']['关闭提示'],nil,a="searchTap"},
 			{data['通天塔']['进入通天塔'],nil,self.通天塔,"finish",dao=self},
-			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,"finish",dao=self},
+			{data['除魔12']['左侧栏变强'],{40,130},"sleep",800},
+			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,bas=500,"finish",dao=self},
 			{data["除魔12"]["除魔滑动"],{94,320,94,163},p="除魔上滑",a="swip",so="kill",sr=true},
-			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,"finish",dao=self},
+			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,bas=500,"finish",dao=self},
 			{data["除魔12"]["除魔滑动"],{94,320,94,163},p="除魔上滑",a="swip",so="kill",sr=true},
-			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,"finish",dao=self},
-			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,"finish",dao=self},
+			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,bas=500,"finish",dao=self},
 			{data["除魔12"]["除魔滑动"],{94,163,94,320},p="除魔下滑",a="swip",so="kill",sr=true},
-			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,"finish",dao=self},
+			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,bas=500,"finish",dao=self},
 			{data["除魔12"]["除魔滑动"],{94,163,94,320},p="除魔下滑",a="swip",so="kill",sr=true},
-			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,"finish",dao=self}
+			{data["通天塔"]["通天塔可接"],nil,a="searchTap",s="kill",self.通天塔,bas=500,"finish",dao=self}
 			}
 		mapping({
 			["pages"]=pages,
-			["runCount"]=3	--如果一直停留在这个界面，超过5次，就结束这个索引
+			["runCount"]=5	--如果一直停留在这个界面，超过5次，就结束这个索引
 		})
 end
 function Dao:通天塔(t)
@@ -186,15 +187,84 @@ function Dao:通天塔(t)
 		{data['挂机']['召唤战神'],nil,a="searchTap",self.召唤战神,bas=800,so="flush",sc={"flush"},one=true,dao=self},	--召唤战神
 		{data['通天塔']['通天塔领取经验'],nil,a="searchTap","finish"},
 		{data['通天塔']['不在左边了'],{442,312},s="left"},
-		{data['通天塔']['自动战斗'],nil,a="searchTap",so="left",sc={"left"}}
-		--TODO 死亡后 结束
-		
+		{data['通天塔']['自动战斗'],nil,a="searchTap",so="left",sc={"left"}},
+		{data['通天塔']['没血了'],nil,a="searchTap",self.买血,dao=self}
 		}
   mapping({
 		["pages"]=pages
 	})
 end
+
+--配置 data['通天塔']['没血了'] 进行操作
+function Dao:买血(t)
+		if type(t) =='table' then
+		self = t
+	end
+	local pages={
+			{data['通天塔']['包裹商店随机石'],{0,-93},a="searchTap",s="up","sleep",200},	--买随机石上面的药
+			{data['通天塔']['包裹关闭按钮'],nil,a="searchTap",so="up",son=5,"finish"}	--买5瓶药关闭包裹
+			}
+		mapping({
+			["pages"]=pages
+		})
+end
+
 -- ------------------------通天塔  end------------------------------------
+
+-- ------------------------主动回收装备  start------------------------------------
+
+function Dao:主动回收装备(t)
+	if type(t) =='table' then
+		self = t
+	end
+	local pages={
+			{data["回收装备"]["全部回收"],nil,self.回收装备全,"finish",dao=self},
+			{data['离线奖励']['离线奖励'],{1043,37}},
+			{data['离线奖励']['关闭提示'],nil,a="searchTap"},
+			{data["除魔12"]["除魔滑动"],{117,130},"sleep",800},
+			{data["除魔12"]["左侧回收装备"],nil,a="searchTap",s="kill",self.回收装备全,"finish",dao=self},
+			{data['除魔12']['左侧栏变强'],{94,320,94,163},p="回收上滑",a="swip",so="kill",sr=true},
+			{data["除魔12"]["左侧回收装备"],nil,a="searchTap",s="kill",self.回收装备全,"finish",dao=self},
+			{data['除魔12']['左侧栏变强'],{94,320,94,163},p="回收上滑",a="swip",so="kill",sr=true},
+			{data["除魔12"]["左侧回收装备"],nil,a="searchTap",s="kill",self.回收装备全,"finish",dao=self}
+			}
+		mapping({
+			["pages"]=pages
+		})
+end
+
+
+function Dao:领取回收奖励(t)
+	if type(t) =='table' then
+		self = t
+	end
+	local pages={
+				{data['每日必做']['每日必做'],nil,a="searchTap","sleep",500},
+				{data['每日必做']['每日回收'],nil,a="searchTap"},
+				{data['每日必做']['每日回收经验丹'],nil,self.领取回收经验丹,dao=self,"finish"}
+			}
+		mapping({
+			["pages"]=pages
+		})
+end
+--领取必做奖励
+function Dao:领取回收经验丹(t)
+		tap(691,484)
+		sleep('领取经验丹',300)
+		tap(570,484)
+		sleep('领取经验丹',300)
+		tap(448,484)
+		sleep('领取经验丹',300)
+		tap(324,484)
+		sleep('领取经验丹',300)
+		tap(813,484)
+		sleep('领取经验丹',300)
+		tap(813,484)
+		sleep('领取经验丹',300)
+		tap(1010,42)--关闭菜单
+end
+-- ------------------------主动回收装备  end------------------------------------
+
 
 -- ------------------------膜拜城主  start------------------------------------
 
@@ -237,7 +307,7 @@ function Dao:个人BOSS_赤月(t)
 			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap","sleep",500},
 			{data['个人BOSS']['赤月恶魔'],nil,a="searchTap",s="up","sleep",1000},
 			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
-			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
+			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,"finish",dao=self,so="up",sc={"up"}}
 			}
 		mapping({
 			["pages"]=pages
@@ -253,7 +323,7 @@ function Dao:个人BOSS_祖玛(t)
 			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap","sleep",500},
 			{data['个人BOSS']['祖玛教主'],nil,a="searchTap",s="up","sleep",1000},
 			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
-			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
+			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,"finish",dao=self,so="up",sc={"up"}}
 			}
 		mapping({
 			["pages"]=pages
@@ -268,7 +338,7 @@ function Dao:个人BOSS_牛魔(t)
 			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap","sleep",500},
 			{data['个人BOSS']['牛魔王'],nil,a="searchTap",s="up","sleep",1000},
 			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
-			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
+			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,"finish",dao=self,so="up",sc={"up"}}
 			}
 		mapping({
 			["pages"]=pages
@@ -283,7 +353,7 @@ function Dao:个人BOSS_魔龙(t)
 			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap","sleep",500},
 			{data['个人BOSS']['魔龙教主'],nil,a="searchTap",s="up","sleep",1000},
 			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
-			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
+			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,"finish",dao=self,so="up",sc={"up"}}
 			}
 		mapping({
 			["pages"]=pages
@@ -298,7 +368,7 @@ function Dao:个人BOSS_火龙(t)
 			{data['个人BOSS']['个人BOSS左菜单'],nil,a="searchTap","sleep",500},
 			{data['个人BOSS']['火龙'],nil,a="searchTap",s="up","sleep",1000},
 			{data['个人BOSS']['挑战条件不足'],{1010,42},"finish"},
-			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,dao=self,so="up",sc={"up"}}
+			{data['个人BOSS']['挑战BOSS'],nil,a="searchTap",self.挑战BOSS,"finish",dao=self,so="up",sc={"up"}}
 			}
 		mapping({
 			["pages"]=pages
@@ -313,7 +383,8 @@ function Dao:挑战BOSS(t)
 			{data['通天塔']['自动战斗'],nil,a="searchTap","sleep",1500,s="click"},
 			{data['个人BOSS']['召唤战神'],nil,a="searchTap",self.召唤战神,bas=1800,one=true,so="click",sc={"click"},dao=self},	--召唤战神
 			{data['主线']['主线个人boss领奖'],nil,a="searchTap",bas=14000,s="up"},	--bas  10秒的捡东西时间
-			{data['主线']['主线个人boss退出'],nil,a="searchTap","finish",so="up",sc={'up'}}
+			{data['主线']['主线个人boss退出'],nil,a="searchTap","finish",so="up",sc={'up'}},
+			{data['通天塔']['没血了'],nil,a="searchTap",self.买血}
 			}
 		mapping({
 			["pages"]=pages
@@ -354,6 +425,23 @@ end
 -- ------------------------领取日常奖励  end------------------------------------
 
 -- ------------------------未知暗殿刷怪  end------------------------------------
+
+function Dao:进入未知暗殿(t)
+	if type(t) =='table' then
+		self = t
+	end
+  local pages={
+		{data["挂机"]["未知暗殿召唤战神"],nil,"finish"},	--说明已经在未知暗殿了
+    {data['每日必做']['每日必做'],nil,a="searchTap","sleep",500},
+		{data['每日必做']['每日回收'],nil,a="searchTap"},
+		{data['挂机']['经验回收进入未知暗殿'],nil,a="searchTap"},
+		{data['主线']['主线未知暗殿'],nil,a="searchTap","finish"}
+  }
+  mapping({
+		["pages"]=pages
+	})
+end
+
 function Dao:未知暗殿召唤战神(t)
 	if type(t) =='table' then
 		self = t
@@ -363,7 +451,7 @@ function Dao:未知暗殿召唤战神(t)
   }
   mapping({
 		["pages"]=pages,
-		["runCount"]=3	--如果一直停留在这个界面，超过3次，就结束这个索引
+		["runCount"]=5	--如果一直停留在这个界面，超过3次，就结束这个索引
 	})
 end
 
@@ -376,12 +464,14 @@ function Dao:未知暗殿刷怪(num)
 		{data['合成']['合成装备手镯'],nil,a="searchTap"},
 		{data['合成']['合成按钮'],nil,a="searchTap",one=true,s="btn","sleep",1000},
 		{data['合成']['合成70级装备'],nil,a="searchTap",one=true,so="btn",onec={"合成按钮"}},
-		{data['合成']['合成关闭'],nil,a="searchTap",so="btn",son=2,onec={"合成70级装备","合成按钮"},"sleep",2000}
+		{data['合成']['合成关闭'],nil,a="searchTap",so="btn",son=2,onec={"合成70级装备","合成按钮"},"sleep",2000},
+		{data['通天塔']['没血了'],nil,a="searchTap",self.买血},
+		{data['通天塔']['自动战斗'],nil,a="searchTap"},
 	}
 	if num==1 then
-		table.insert(pages,{data["挂机"]["未知暗殿boss刷新1"],nil,"sleep",30000,a="searchTap",sc={"btn","menu"}})
+		table.insert(pages,{data["挂机"]["未知暗殿boss刷新1"],nil,"sleep",40000,a="searchTap",sc={"btn","menu"}})
 	elseif num==2 then
-		table.insert(pages,{data["挂机"]["未知暗殿boss刷新2"],nil,"sleep",30000,a="searchTap",sc={"btn","menu"}})
+		table.insert(pages,{data["挂机"]["未知暗殿boss刷新2"],nil,"sleep",40000,a="searchTap",sc={"btn","menu"}})
 	end
   mapping({
 		["pages"]=pages

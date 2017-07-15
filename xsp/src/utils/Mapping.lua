@@ -230,8 +230,7 @@ function Mapping:Run()
 					end
 					
 					if isContinue then
-					
-						print(checkOnlyOne)
+--						print(checkOnlyOne)
 						
 						--没有continue 关键字，所以只能加一层if判断
 						if not checkOnlyOne[page.pagename] or (checkOnlyOne[page.pagename] and checkOnlyOne[page.pagename]~=1) then
@@ -283,10 +282,16 @@ function Mapping:Run()
 	--							调试关键输出
 	--							print(page)
 								
-								if page.action_par then
+								if page.action_par then									
 									if type(page.action)=="string" then
-										page.action=self.basefn[page.action]
-										page:action(page.action_par)
+										if page.action=="searchTap"  then
+											page.action=self.basefn[page.action]
+											page:action(page.check_par,page.action_par)--和下面 执行参数不一样,针对searchTap 点击偏移问题
+											page.action ="searchTap"
+										else
+											page.action=self.basefn[page.action]
+											page:action(page.action_par)
+										end
 									else
 										page:action(page.action_par) 
 									end

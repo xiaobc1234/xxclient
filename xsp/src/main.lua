@@ -54,21 +54,18 @@ local function clientOnlyMain()
 	
 	--首先移动浮层
 	移动浮层()
+	
+	local _回收装备全 = config['回收装备全']
+	local _领取回收奖励 = config['领取回收奖励']
+	
+	if _回收装备全=='0' then
+		回收装备全()
+	end
 
 --	print("main="..config['main'])
 	if config['main']=='0' then
 		主线任务()
 	end
-	if config['未知暗殿']=="0" then
-		--先召唤战神
-		未知暗殿召唤战神()
-		刷未知暗殿boss(1)-- 刷排序中的第一个boss
-	elseif config['未知暗殿']=="1" then
-		未知暗殿召唤战神()
-		刷未知暗殿boss(2)-- 刷排序中的第一个boss
-	end
-	
---	print('config["每日必做"]='..config['每日必做'])
 	
 	local 每日必做 = config['每日必做'];
 	local must={}
@@ -118,6 +115,22 @@ local function clientOnlyMain()
 			个人BOSS火龙()
 		end
   end
+	
+	--开始一次回收，结束一次回收
+	if _回收装备全=='0' then
+		回收装备全()
+	end
+	
+	if _领取回收奖励=='0' then
+		领取回收奖励()
+	end
+	
+	if config['未知暗殿']=="0" then
+		--先召唤战神
+		未知暗殿挂机(1)-- 刷排序中的第一个boss
+	elseif config['未知暗殿']=="1" then
+		未知暗殿挂机(2)
+	end
 	
 	--测试用
 --	for tmpi=1,2 do

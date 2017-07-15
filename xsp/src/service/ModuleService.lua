@@ -23,6 +23,10 @@ function 主线()
 	dao:主线()
 end
 
+function 进入未知暗殿()
+	dao:进入未知暗殿()
+end
+
 function 未知暗殿召唤战神()
 	dao:未知暗殿召唤战神()
 end
@@ -47,6 +51,14 @@ function 移动浮层()
 end
 
 --------------------打经验------------------------------
+function 回收装备全()
+	dao:主动回收装备()
+end
+
+function 领取回收奖励()
+	dao:领取回收奖励()
+end
+
 function 个人BOSS牛魔()
 	dao:个人BOSS_牛魔()
 end
@@ -136,9 +148,6 @@ end
 
 
 --------------------个人提升------------------------------
-function 回收所有装备()
-
-end
 
 
 function 回收80级以下装备()
