@@ -11,7 +11,6 @@ showTip("当前分辨率：".._fsw.."*".._fsh)
 deviceId= string.format('%s', getDeviceUUID())
 
 
-
 -- 网络版
 local function serverMain()
 
