@@ -6,22 +6,22 @@ local bb = require("badboy")
 local strUtils = bb.getStrUtils()
 
 
-
 showTip("当前分辨率：".._fsw.."*".._fsh)
 
 deviceId= string.format('%s', getDeviceUUID())
-
---dialog("欢迎使用冰城脚本！您的设备号: "..deviceId)
-
-mSleep(1000)
 
 
 
 -- 网络版
 local function serverMain()
+
+	dialog("欢迎使用冰城脚本！您的设备号: "..deviceId)
+
 	--先发送请求,记录该设备
 	synPost(httpHost.."/client/devices/"..appAlias.."/"..deviceId,"",defaultSuccess,defaultError);
-
+	
+	sleep("记录设备号信息",1000)
+	
 	-- 下面进入主循环
 	while(true) do
 		
@@ -91,8 +91,10 @@ local function clientOnlyMain()
 			膜拜城主()
 		end
   end
-	-- 领取每日必做奖励
-	领取每日必做奖励()
+	if must then
+		-- 领取每日必做奖励
+		领取每日必做奖励()
+	end
 	
 	--下面是打经验的脚本
 	local 个人BOSS = config['个人BOSS'];
@@ -132,21 +134,17 @@ local function clientOnlyMain()
 		未知暗殿挂机(2)
 	end
 	
-	--测试用
---	for tmpi=1,2 do
---     test()     
---  end
-	
 
+	
 end
 
-
--- 执行网络方法
--- serverMain()
-
--- 执行脱机版方法
-clientOnlyMain()
-
+if _online then
+	-- 执行网络方法
+	 serverMain()
+else
+	-- 执行脱机版方法
+	clientOnlyMain()
+end
 
 
 

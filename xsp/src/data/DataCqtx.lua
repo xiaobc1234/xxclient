@@ -63,7 +63,7 @@ function Dao:主线()
 		{data['主线']['完成任务'],{187,548}},
 		{data['主线']['任务栏完成'],nil,a="searchTap"},
 		{data['主线']['装备'],nil,a="searchTap","sleep",500},
-		{data['主线']['任务栏未完成'],{110,170},"sleep",300,bac={data["bac"]["主线石墓"],data['bac']['前往沙城']}},
+		{data['主线']['任务栏未完成'],{110,170},"sleep",1000,bac={data["bac"]["主线石墓"],data['bac']['前往沙城']}},
 		{data['主线']['冲级大礼包'],{569,404},"sleep",1000},
 		{data['主线']['主线回收装备'],nil,self.回收装备全,dao=self},
 		{data['主线']['主线回收装备2'],nil,self.回收装备全,dao=self},
@@ -79,8 +79,11 @@ function Dao:主线()
 		{data['主线']['主线个人boss领奖'],nil,a="searchTap",bas=10000},	--bas  10秒的捡东西时间
 		{data['主线']['主线个人boss退出'],nil,a="searchTap"},
 		{data['主线']['主线等级限制'],nil,self.降妖除魔1,dao=self},--TODO 跳转到12次降妖除魔任务
+		{data['主线']['主线升级任务限制'],nil,self.降妖除魔1,dao=self},--TODO 跳转到12次降妖除魔任务
 		{data['主线']['主线称号'],nil,a="searchTap",self.升级称号,dao=self},
-		{data['主线']['主线未知暗殿'],{384,321},self.升级内功,"finish",dao=self}
+		{data['主线']['主线未知暗殿'],{384,321},self.升级内功,"finish",dao=self},
+		{data['主线']['对话'],nil,a="searchTap"},
+		{data['主线']['关闭地图'],{1029,80}}
   }
   mapping({
 		["pages"]=pages
@@ -123,7 +126,7 @@ function Dao:降妖除魔1(t)
 			}
 		mapping({
 			["pages"]=pages,
-			["runCount"]=3	--如果一直停留在这个界面，超过5次，就结束这个索引
+			["runCount"]=5	--如果一直停留在这个界面，超过5次，就结束这个索引
 		})
 end
 function Dao:降妖除魔(t)
@@ -202,10 +205,11 @@ function Dao:买血(t)
 	end
 	local pages={
 			{data['通天塔']['包裹商店随机石'],{0,-93},a="searchTap",s="up","sleep",200},	--买随机石上面的药
-			{data['通天塔']['包裹关闭按钮'],nil,a="searchTap",so="up",son=5,"finish"}	--买5瓶药关闭包裹
+			{data['通天塔']['包裹关闭按钮'],nil,a="searchTap",so="up",son=3,"finish"}	--买3瓶药关闭包裹
 			}
 		mapping({
-			["pages"]=pages
+			["pages"]=pages,
+			["indexDelay"]=5000	--买血后5秒的回血时间
 		})
 end
 
@@ -226,7 +230,8 @@ function Dao:主动回收装备(t)
 			{data['除魔12']['左侧栏变强'],{94,320,94,163},p="回收上滑",a="swip",so="kill",sr=true},
 			{data["除魔12"]["左侧回收装备"],nil,a="searchTap",s="kill",self.回收装备全,"finish",dao=self},
 			{data['除魔12']['左侧栏变强'],{94,320,94,163},p="回收上滑",a="swip",so="kill",sr=true},
-			{data["除魔12"]["左侧回收装备"],nil,a="searchTap",s="kill",self.回收装备全,"finish",dao=self}
+			{data["除魔12"]["左侧回收装备"],nil,a="searchTap",s="kill",self.回收装备全,"finish",dao=self},
+			{data['主线']['关闭地图'],{1029,80}}
 			}
 		mapping({
 			["pages"]=pages
@@ -403,7 +408,8 @@ function Dao:每日必做_领取奖励(t)
 			{data['每日必做']['领取必做奖励'],nil,self.领取必做奖励,dao=self,"finish"}
 			}
 		mapping({
-			["pages"]=pages
+			["pages"]=pages,
+			["runCount"]=5	--如果一直停留在这个界面，超过3次，就结束这个索引
 		})
 end
 --领取必做奖励

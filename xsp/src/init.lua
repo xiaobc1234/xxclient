@@ -10,6 +10,8 @@ httpHost = "http://10.1.1.105:8888"--设置请求接口host
 appAlias="cqtx"--应用别名用于请求服务端任务
 taskLock=false--任务锁，false表示没有任务正在进行，true表示任务正在执行中
 
+_online=false	--是否网络版
+
 _debug = true--定义全局debug模式
 
 
