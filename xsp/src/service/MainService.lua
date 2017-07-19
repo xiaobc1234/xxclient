@@ -14,6 +14,9 @@ end
 
 function 通天塔2次()
 	dao:通天塔2次()
+	--通天塔完后 喝酒
+	sleep('马上喝酒',2000)
+	dao:每日必做_喝酒()
 end
 
 -- 必须在通天塔做完之后才可以做
@@ -50,13 +53,24 @@ end
 
 function 每日必做副本()
 	dao:每日必做_副本(1)
+	sleep('副本sleep',500)
+	dao:每日必做_副本(1)
+	sleep('副本sleep',500)
 	dao:每日必做_副本(2)
+	sleep('副本sleep',500)
+	dao:每日必做_副本(2)
+	sleep('副本sleep',500)
 	dao:每日必做_副本(3)
+	sleep('副本sleep',500)
+	dao:每日必做_副本(3)
+	sleep('副本sleep',500)
+	dao:每日必做_副本(4)
+	sleep('副本sleep',500)
 	dao:每日必做_副本(4)
 end
 
 function 切换角色()
-	return dao:切换角色()
+	dao:切换角色()
 end
 
 

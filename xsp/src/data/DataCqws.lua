@@ -108,7 +108,7 @@ function Dao:通天塔(t)
   local pages={
 		{data['通天塔']['进入通天塔'],nil,"sleep",1000,a="searchTap",ci=true},
 		{data['通天塔']['通天塔界面'],{191,576},"sleep",500},
-		{data['通天塔']['通天塔领取奖励'],nil,a="searrchTap"}
+		{data['通天塔']['通天塔领取奖励'],nil,a="searchTap"}
 		}
   mapping({
 		["pages"]=pages
@@ -237,7 +237,7 @@ function Dao:挑战BOSS(t)
 	local pages={
 			{data['个人BOSS']['自动战斗'],nil,a="searchTap","sleep",1500,s="click"},
 			{data['个人BOSS']['召唤战神'],nil,a="searchTap",self.召唤战神,bas=1800,one=true,so="click",sc={"click"},dao=self},	--召唤战神
-			{data['个人BOSS']['个人BOSS领奖'],nil,a="searchTap",bas=14000,s="up"},--bas  14秒的捡东西时间
+			{data['个人BOSS']['个人BOSS领奖'],nil,a="searchTap",bas=16000,s="up"},--bas  16秒的捡东西时间
 			{data['个人BOSS']['个人BOSS领奖退出'],nil,a="searchTap","finish",so="up",sc={'up'}}
 			}
 		mapping({
@@ -295,19 +295,19 @@ end
 
 -- ------------------------副本  start------------------------------------
 function Dao:每日必做_副本(num)
-		
+	
 	local pages={
-			{data['每日必做']['每日必做'],nil,a="searchTap","sleep",500}
-			}
+		{data['每日必做']['每日必做'],nil,a="searchTap","sleep",500}
+	}
 			
 	if num==1 then
-		table.insert(pages,{data['每日必做']['护盾副本'],nil,a="searchTap",slef.副本_祖玛寺庙,dao=self,"finish"})
+		table.insert(pages,{data['每日必做']['护盾副本'],nil,a="searchTap",self.副本_祖玛寺庙,dao=self,"finish"})
 	elseif num==2 then
-		table.insert(pages,{data['每日必做']['护盾副本'],nil,a="searchTap",slef.副本_沃玛寺庙,dao=self,"finish"})
+		table.insert(pages,{data['每日必做']['护盾副本'],nil,a="searchTap",self.副本_沃玛寺庙,dao=self,"finish"})
 	elseif num==3 then
-		table.insert(pages,{data['每日必做']['护盾副本'],nil,a="searchTap",slef.副本_封魔恶谷,dao=self,"finish"})
+		table.insert(pages,{data['每日必做']['护盾副本'],nil,a="searchTap",self.副本_封魔恶谷,dao=self,"finish"})
 	else 
-		table.insert(pages,{data['每日必做']['护盾副本'],nil,a="searchTap",slef.副本_赤月神殿,dao=self,"finish"})
+		table.insert(pages,{data['每日必做']['护盾副本'],nil,a="searchTap",self.副本_赤月神殿,dao=self,"finish"})
 	end
 	
 		mapping({
@@ -415,12 +415,8 @@ function Dao:切换角色()
 end
 
 function Dao:换角色()
+	print(role)
 	role = role +1
-	if role>4 then
-		return false
-	else 
-		return true
-	end
 end
 
 

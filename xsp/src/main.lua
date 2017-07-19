@@ -102,7 +102,9 @@ local function clientOnlyMain()
 -- 领取每日必做奖励
 		每日必做领奖()
 		
-	if 切换角色() then
+		
+	切换角色()
+	if role<=4 then
 	--	如果不是第四个角色执行完，就切换角色重新执行
 		clientOnlyMain()
 	end
