@@ -14,9 +14,10 @@ end
 
 function 通天塔2次()
 	dao:通天塔2次()
-	--通天塔完后 喝酒
-	sleep('马上喝酒',2000)
-	dao:每日必做_喝酒()
+end
+
+function 膜拜城主()
+	dao:每日必做_膜拜城主()
 end
 
 -- 必须在通天塔做完之后才可以做
@@ -47,6 +48,12 @@ end
 function 个人BOSS魔龙()
 	dao:个人BOSS_魔龙()
 end
+
+function 个人BOSS牛魔()
+	dao:个人BOSS_牛魔()
+end
+
+
 function 每日必做领奖()
 	dao:每日必做_领取奖励()
 end
@@ -71,6 +78,10 @@ end
 
 function 切换角色()
 	dao:切换角色()
+end
+
+function 未知暗殿挂机(num)
+	dao:未知暗殿刷怪(num)
 end
 
 

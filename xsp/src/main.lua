@@ -67,17 +67,21 @@ local function clientOnlyMain()
 			除魔5次()
 		elseif "1"==v then
 			通天塔2次()
+			if must[4] then
+				sleep('马上喝酒',2000)
+				快捷喝酒5次()
+			end
 		elseif "2"==v then
---		TODO
---			膜拜城主()
+			膜拜城主()
 		elseif "3"==v then
 			每日必做副本()
 		end
   end
 	
-	-- 领取每日必做奖励
-	每日必做领奖()
-	
+	if 每日必做~="" then
+		-- 领取每日必做奖励
+		每日必做领奖()
+	end
 	--下面是打经验的脚本
 	local 个人BOSS = config['个人BOSS'];
 	local boss={}
@@ -96,18 +100,42 @@ local function clientOnlyMain()
 			个人BOSS赤月()
 		elseif "3"==v then
 			个人BOSS魔龙()
+		elseif "4"==v then
+			个人BOSS牛魔()
 		end
   end
-	
--- 领取每日必做奖励
+	if 个人BOSS~="" then
+		-- 领取每日必做奖励
 		每日必做领奖()
-		
-		
-	切换角色()
-	if role<=4 then
-	--	如果不是第四个角色执行完，就切换角色重新执行
-		clientOnlyMain()
 	end
+	
+	local 挂机 = config['未知暗殿']
+	if 挂机 and 挂机=='0' then
+		未知暗殿挂机(1)
+	elseif 挂机 and 挂机=='1' then
+		未知暗殿挂机(2)
+	end
+		
+	--下面是打经验的脚本
+	local 换角色 = config['change'];
+	if 换角色 and 换角色~='3' then
+		local maxRole = 4
+		切换角色()
+		if 换角色=='0' then
+			maxRole=2
+		elseif 换角色=='1' then
+			maxRole=3
+		else
+			maxRole=4
+		end
+		if role<=maxRole then
+			--	如果不是第maxRole个角色执行完，就切换角色重新执行
+			clientOnlyMain()
+		end
+	end
+		
+	
+	
 	
 end
 
