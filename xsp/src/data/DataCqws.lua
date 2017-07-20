@@ -13,6 +13,7 @@ end
 function Dao:登录()
   local pages={
     {data["登录"]["登录账号"],nil,a="searchTap"},
+		{data['登录']['安峰公告'],nil,a="searchTap"},
 		{data['登录']['登录公告'],nil,a="searchTap"},
 		{data['登录']['登录游戏'],nil,a="searchTap"},
 		{data['登录']['选择角色'],nil,a="searchTap",p="进入游戏","finish",so="login"},--进入游戏
@@ -323,7 +324,9 @@ function Dao:副本_沃玛寺庙(t)
 	local pages={
 			{data['副本']['沃玛寺庙'],nil,a="searchTap","sleep",500},
 			{data['副本']['挑战副本'],nil,a="searchTap",self.副本秒退,"finish",dao=self},
-			{data['副本']['挑战条件不足'],{1709,63},"finish"}
+			{data['副本']['挑战条件不足'],{1709,63},"finish"},
+			{data['副本']['副本剩余次数不足'],{1709,63},"finish"},
+			{data['副本']['副本卷轴不足'],{1709,63},"finish"}	
 			}
 		mapping({
 			["pages"]=pages
@@ -337,7 +340,9 @@ function Dao:副本_祖玛寺庙(t)
 	local pages={
 			{data['副本']['祖玛寺庙'],nil,a="searchTap","sleep",500,s="one"},
 			{data['副本']['挑战副本'],nil,a="searchTap",so="one",self.副本走完,"finish",dao=self},
-			{data['副本']['挑战条件不足'],{1709,63},"finish"}
+			{data['副本']['挑战条件不足'],{1709,63},"finish"},
+			{data['副本']['副本剩余次数不足'],{1709,63},"finish"},
+			{data['副本']['副本卷轴不足'],{1709,63},"finish"}	
 			}
 		mapping({
 			["pages"]=pages
@@ -350,7 +355,9 @@ function Dao:副本_封魔恶谷(t)
 	local pages={
 			{data['副本']['封魔恶谷'],nil,a="searchTap","sleep",500},
 			{data['副本']['挑战副本'],nil,a="searchTap",self.副本秒退,"finish",dao=self},
-			{data['副本']['挑战条件不足'],{1709,63},"finish"}
+			{data['副本']['挑战条件不足'],{1709,63},"finish"},
+			{data['副本']['副本剩余次数不足'],{1709,63},"finish"},
+			{data['副本']['副本卷轴不足'],{1709,63},"finish"}	
 			}
 		mapping({
 			["pages"]=pages
@@ -363,7 +370,9 @@ function Dao:副本_赤月神殿(t)
 	local pages={
 			{data['副本']['赤月神殿'],nil,a="searchTap","sleep",500},
 			{data['副本']['挑战副本'],nil,a="searchTap",self.副本秒退,"finish",dao=self},
-			{data['副本']['挑战条件不足'],{1709,63},"finish"}
+			{data['副本']['挑战条件不足'],{1709,63},"finish"},
+			{data['副本']['副本剩余次数不足'],{1709,63},"finish"},
+			{data['副本']['副本卷轴不足'],{1709,63},"finish"}	
 			}
 		mapping({
 			["pages"]=pages
