@@ -54,6 +54,11 @@ local function clientOnlyMain()
 	滑动浮层()
 	登录()
 	
+	local _主线2 = config['主线2']
+	if _主线2=='0' then
+			经验商主线()
+	end
+	
 	local _主线 = config['主线']
 	if _主线=='0' then
 			主线()
@@ -116,9 +121,9 @@ local function clientOnlyMain()
 	end
 	
 	local 挂机 = config['未知暗殿']
-	if 挂机 and 挂机=='0' then
+	if 挂机 and 挂机=='1' then
 		未知暗殿挂机(1)
-	elseif 挂机 and 挂机=='1' then
+	elseif 挂机 and 挂机=='2' then
 		未知暗殿挂机(2)
 	end
 	

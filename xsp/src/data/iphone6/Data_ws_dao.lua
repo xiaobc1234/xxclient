@@ -53,6 +53,7 @@ function Dao:主线()
     {data["主线"]["开始游戏"],nil,a="searchTap"},
 		{data['主线']['完成任务'],nil,a="searchTap"},
 		{data['主线']['任务栏完成'],nil,a="searchTap","sleep",500},
+		{data['主线']['任务栏完成2'],nil,a="searchTap","sleep",500},
 		{data['主线']['装备'],nil,a="searchTap","sleep",500},
 --		{data['主线']['任务栏未完成'],{110,170},"sleep",1000,bac={data["bac"]["主线石墓"],data['bac']['前往沙城']}},
 		{data['主线']['羽翼'],{1186,44}},
@@ -76,8 +77,10 @@ function Dao:主线()
 		{data['主线']['主线个人boss退出'],nil,a="searchTap"},
 		{data['主线']['主线等级限制'],nil,self.任务栏降妖除魔1,dao=self},--TODO 跳转到12次降妖除魔任务
 --		{data['主线']['主线称号'],nil,a="searchTap",self.升级称号,dao=self},
-		{data['主线']['主线未知暗殿'],{452,379},"finish"}
+		{data['主线']['主线未知暗殿'],{452,379},"finish"},
 --		{data['主线']['主线未知暗殿'],{384,321},self.升级内功,"finish",dao=self}
+		--TODO 主线增加70级最后一个领奖
+		{data['主线']['主线到70级'],nil,"finish"}
   }
   mapping({
 		["pages"]=pages
@@ -157,7 +160,7 @@ function Dao:任务栏降妖除魔1(t)
 			{data['离线奖励']['离线奖励'],{1225,44}},
 			{data['离线奖励']['关闭提示'],nil,a="searchTap"},
 			{data['主线']['除魔刷新'],nil,self.降妖除魔,"finish",dao=self},
---			{data['除魔12']['左侧栏变强'],{40,130},"sleep",800},
+			{data["除魔"]["左侧任务"],nil,a="searchTap","sleep",500},
 			{data["除魔"]["除魔可接"],nil,a="searchTap",s="kill",self.降妖除魔,"finish",dao=self},
 			{data["除魔"]["除魔滑动"],{110,380,110,190},p="除魔上滑",a="swip",so="kill",sr=true},
 			{data["除魔"]["除魔可接"],nil,a="searchTap",s="kill",self.降妖除魔,"finish",dao=self},
@@ -550,8 +553,21 @@ function Dao:换角色()
 end
 
 
--- DONE
 -- ------------------------未知暗殿刷怪  start------------------------------------
+function Dao:主线未知暗殿(t)
+	if type(t) =='table' then
+		self = t
+	end
+  local pages={
+    {data["挂机"]["主线未知暗殿"],nil,a="searchTap"},
+		{data['主线']['主线未知暗殿'],nil,a="searchTap","finish"}
+  }
+  mapping({
+		["pages"]=pages,
+		["runCount"]=10	--如果一直停留在这个界面，超过3次，就结束这个索引
+	})
+end
+
 function Dao:未知暗殿召唤战神(t)
 	if type(t) =='table' then
 		self = t
@@ -561,13 +577,14 @@ function Dao:未知暗殿召唤战神(t)
   }
   mapping({
 		["pages"]=pages,
-		["runCount"]=5	--如果一直停留在这个界面，超过3次，就结束这个索引
+		["runCount"]=6	--如果一直停留在这个界面，超过3次，就结束这个索引
 	})
 end
 
-function Dao:未知暗殿刷怪(num)
+function Dao:未知暗殿刷怪(num,runtimeLength)
   local pages={
 		--合成装备
+		{data['挂机']['英雄试炼任务完成'],{131,582,73,604},a="swip",one=true},
 		{data['挂机']['底部菜单'],nil,a="searchTap","sleep",500},
 		{data['挂机']['底部装备菜单'],nil,a="searchTap",so="menu",sr=true,"sleep",500},
 		{data['挂机']['底部合成菜单'],nil,a="searchTap",s="menu","sleep",1500},
@@ -576,17 +593,204 @@ function Dao:未知暗殿刷怪(num)
 		{data['挂机']['合成70级装备'],nil,a="searchTap",one=true,so="btn",onec={"合成按钮"}},
 		{data['挂机']['合成关闭'],nil,a="searchTap",so="btn",son=2,onec={"合成70级装备","合成按钮"},"sleep",2000},
 		{data['挂机']['自动战斗'],nil,a="searchTap","sleep",500},
+		{data['挂机']['没血了'],nil,a="searchTap",self.买血,dao=self}
 	}
-	if num==1 then
-		table.insert(pages,{data["挂机"]["未知暗殿boss刷新1"],nil,"sleep",40000,a="searchTap",sc={"btn","menu"}})
-	elseif num==2 then
-		table.insert(pages,{data["挂机"]["未知暗殿boss刷新2"],nil,"sleep",40000,a="searchTap",sc={"btn","menu"}})
+	if num==2 then
+		table.insert(pages,{data["挂机"]["未知暗殿boss刷新1"],nil,"sleep",5000,a="searchTap",sc={"btn","menu"}})
+	else
+		table.insert(pages,{data["挂机"]["未知暗殿boss刷新2"],nil,"sleep",5000,a="searchTap",sc={"btn","menu"}})
 	end
+  mapping({
+		["pages"]=pages,
+		["indexRunTimeLength"]=runtimeLength
+	})
+end
+
+function Dao:买血(t)
+		if type(t) =='table' then
+		self = t
+	end
+	local pages={
+			{data['挂机']['包裹商店随机石'],{0,-110},a="searchTap",s="up","sleep",200},	--买随机石上面的药
+			{data['挂机']['包裹关闭按钮'],nil,a="searchTap",so="up",son=3,"finish"}	--买3瓶药关闭包裹
+			}
+		mapping({
+			["pages"]=pages,
+			["indexDelay"]=5000	--买血后5秒的回血时间
+		})
+end
+
+-- ------------------------未知暗殿刷怪  end------------------------------------
+
+function Dao:升级内功()
+	local pages={
+		{data['挂机']['底部菜单'],nil,a="searchTap","sleep",500},
+		{data['设置']['底部菜单角色'],nil,a="searchTap","sleep",500},
+		{data['设置']['左侧内功菜单'],nil,a="searchTap","sleep",200},
+		{data['设置']['升级内功'],nil,a="searchTap","sleep",2000,s="one"},
+		{data['设置']['关闭内功界面'],nil,a="searchTap",so="one","finish"}
+	}
   mapping({
 		["pages"]=pages
 	})
 end
--- ------------------------未知暗殿刷怪  end------------------------------------
+
+function Dao:升级翅膀()
+	local pages={
+		{data['挂机']['底部菜单'],nil,a="searchTap","sleep",500},
+		{data['设置']['底部神翼菜单'],nil,a="searchTap","sleep",500},
+		{data['设置']['自动培养'],nil,a="searchTap","sleep",5000,s="one"},
+		{data['设置']['关闭内功界面'],nil,a="searchTap",so="one","finish"}
+	}
+  mapping({
+		["pages"]=pages
+	})
+end
+
+function Dao:升级成就()
+	local pages={
+		{data['挂机']['底部菜单'],nil,a="searchTap","sleep",500},
+		{data['设置']['底部成就菜单'],nil,a="searchTap","sleep",500},
+		{data['设置']['成就可领取'],nil,a="searchTap","sleep",200},
+		{data['设置']['领取成就'],nil,a="searchTap",'sleep',200},
+		{data['设置']['成就领取完了'],{100,314},"sleep",200},
+		{data['设置']['升级勋章'],nil,a="searchTap","sleep",500,s="one"},
+		{data['设置']['关闭内功界面'],nil,a="searchTap",so="one","finish"}
+	}
+  mapping({
+		["pages"]=pages
+	})
+end
+
+-- 运行5次自动结束
+function Dao:设置保护()
+	local pages={
+		{data['挂机']['底部菜单'],nil,a="searchTap","sleep",500},
+		{data['切换角色']['底部菜单设置'],nil,a="searchTap","sleep",200},
+		{data['设置']['自动召唤神兽'],nil,a="searchTap"},
+		{data['设置']['生命保护50'],{572,216},"sleep",500},
+		{data['设置']['回城保护5'],{351,618},"sleep",500},
+		{data['设置']['回城石'],nil,a="searchTap","sleep",500},
+		{data['设置']['随机石'],nil,a='searchTap','sleep',200}
+	}
+  mapping({
+		["pages"]=pages,
+		["runCount"]=5
+	})
+end
+
+function Dao:设置拾取()
+	local pages={
+		{data['设置']['左侧拾取菜单'],nil,a='searchTap'},
+		{data['设置']['不捡金币'],nil,a='searchTap'}
+	}
+  mapping({
+		["pages"]=pages,
+		["runCount"]=4
+	})
+end
+
+function Dao:设置屏蔽()
+	local pages={
+		{data['设置']['左侧设置菜单'],nil,a='searchTap'},
+		{data['设置']['屏蔽设置'],nil,a='searchTap'},
+		{data['设置']['屏蔽设置'],nil,a='searchTap'},
+		{data['设置']['屏蔽设置'],nil,a='searchTap'}
+	}
+  mapping({
+		["pages"]=pages,
+		["runCount"]=5
+	})
+end
+function Dao:关闭设置()
+	local pages={
+		{data['设置']['关闭内功界面'],nil,a="searchTap","finish"}
+	}
+  mapping({
+		["pages"]=pages,
+		["runCount"]=4
+	})
+end
+
+
+-- ------------------------主动回收装备  start------------------------------------
+function Dao:主动回收装备(t)
+	if type(t) =='table' then
+		self = t
+	end
+	local pages={
+			{data["回收装备"]["全部回收"],nil,self.回收装备全,"finish",dao=self},
+			{data['离线奖励']['离线奖励'],{1225,44}},
+			{data['离线奖励']['关闭提示'],nil,a="searchTap"},
+			{data["除魔"]["左侧变强"],nil,a="searchTap","sleep",500},
+
+			{data["除魔"]["左侧回收装备"],nil,a="searchTap",s="kill",self.回收装备全,"finish",dao=self},
+			{data['除魔']['左侧变强高亮'],{110,380,110,190},p="回收上滑",a="swip",so="kill",sr=true},
+			{data["除魔"]["左侧回收装备"],nil,a="searchTap",s="kill",self.回收装备全,"finish",dao=self},
+			{data['除魔']['左侧变强高亮'],{110,380,110,190},p="回收上滑",a="swip",so="kill",sr=true},
+			{data["除魔"]["左侧回收装备"],nil,a="searchTap",s="kill",self.回收装备全,"finish",dao=self}
+			}
+		mapping({
+			["pages"]=pages
+		})
+end
+
+function Dao:左侧任务栏恢复()
+	local pages={
+			{data["除魔"]["左侧任务"],nil,a="searchTap","finish"},
+			}
+		mapping({
+			["pages"]=pages
+		})
+end
+
+
+function Dao:领取回收奖励(t)
+	if type(t) =='table' then
+		self = t
+	end
+	local pages={
+				{data['每日必做']['每日必做'],nil,a="searchTap","sleep",500},
+				{data['每日必做']['每日回收'],nil,a="searchTap"},
+				{data['每日必做']['每日回收经验丹'],nil,self.领取回收经验丹,dao=self,"finish"}
+			}
+		mapping({
+			["pages"]=pages
+		})
+end
+--领取必做奖励
+function Dao:领取回收经验丹(t)
+		tap(811,578)
+		sleep('领取经验丹',300)
+		tap(670,578)
+		sleep('领取经验丹',300)
+		tap(525,578)
+		sleep('领取经验丹',300)
+		tap(380,578)
+		sleep('领取经验丹',300)
+		tap(953,578)
+		sleep('领取经验丹',300)
+		tap(953,578)
+		sleep('领取经验丹',300)
+		tap(1185,45)--关闭菜单
+end
+-- ------------------------主动回收装备  end------------------------------------
+
+function Dao:赤月挂酒(indexRunTimeLength)
+	local pages={
+			{data["挂机"]["右上角地图"],nil,a='searchTap','sleep',500,so="up",sr=true},
+			{data['挂机']['世界地图'],nil,a='searchTap',s="up"},
+			{data['挂机']['赤月神殿'],nil,a='searchTap',s="up2"},
+			{data['挂机']['自动战斗'],nil,a="searchTap"},
+			{data['挂机']['被杀了'],nil,a='searchTap',sc={'up'}},
+			{data['除魔']['召唤战神'],nil,a="searchTap",self.召唤战神,so="up2",sc={"up2"},one=true,dao=self},	--召唤战神
+			}
+		mapping({
+			["pages"]=pages,
+			['indexRunTimeLength']=indexRunTimeLength,	--挂酒2小时
+			['delay']=1000
+		})
+end
 
 
 

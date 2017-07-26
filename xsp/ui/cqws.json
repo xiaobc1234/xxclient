@@ -25,6 +25,15 @@
 	{
 	  "id" : "主线",
 	  "list" : "主线任务",
+	  "select" : "",
+	  "size" : "30",
+	  "type" : "CheckBoxGroup",
+	  "orientation" : "horizontal",
+	  "color" : "0,0,225"
+  },
+	{
+	  "id" : "主线2",
+	  "list" : "经验商主线任务(包含挂2小时酒，5小时副本卷)",
 	  "select" : "0",
 	  "size" : "30",
 	  "type" : "CheckBoxGroup",
@@ -42,7 +51,7 @@
 	{
 	  "id" : "每日必做",
 	  "list" : "除魔5次,通天塔,副本任务,膜拜城主,喝酒",
-	  "select" : "0",
+	  "select" : "",
 	  "size" : "30",
 	  "type" : "CheckBoxGroup",
 	  "orientation" : "horizontal",
@@ -68,7 +77,7 @@
 	{
 	  "id" : "个人BOSS",
 	  "list" : "沃玛教主,祖玛教主,赤月恶魔,魔龙教主,牛魔王",
-	  "select" : "0",
+	  "select" : "",
 	  "size" : "30",
 	  "type" : "CheckBoxGroup",
 	  "orientation" : "horizontal",
@@ -84,8 +93,8 @@
   },
 	{
 	  "id" : "未知暗殿",
-	  "list" : "未知暗殿怪1,未知暗殿怪2,不挂机",
-	  "select" : "2",
+	  "list" : "不挂机,未知暗殿怪1,未知暗殿怪2",
+	  "select" : "0",
 	  "size" : "30",
 	  "type" : "ComboBox"
   },

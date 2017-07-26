@@ -59,6 +59,7 @@ function Mapping:new(name)
 	index.repeatTimes=nil	--这个索引执行多少遍
 	index.repeatDelay=nil	--重复执行这个索引间隔
 	index.indexDelay=nil--单独使用，表示索引执行结束后延迟多久   具体请看util.lua的说明
+	index.indexRunTimeLength=nil	--索引执行多久后结束 eg：60*60*5  5小时   以秒为单位
 	
   --索引函数的默认方法
   index.basefn = Public
@@ -179,8 +180,16 @@ function Mapping:Run()
 	local checkOnlyOne = {} --只检测一次的临时参数
 	
 	local zIndex={}	--索引中page排序用
+	local startTime = os.time()	--开始时间
 	
   while not self.finished do
+	
+		--如果设置了运行多长时间就结束索引
+		if self.indexRunTimeLength and self.indexRunTimeLength<(os.time()-startTime) then
+			self.finished = true
+			break;
+		end
+	
     runCountLocal= runCountLocal+1
 --    mSleep(1000-delay)--以免占用cpu过高
 		sleep("mapping self.delay",self.delay);

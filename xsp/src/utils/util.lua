@@ -63,6 +63,7 @@ end
 --	["repeatTimes"]=5,--	表示这个索引要重复执行成功5次
 --	["repeatDelay"]=500--	和repeatTimes对应使用，可以不设置，表示重复执行的中间间隔
 --	["indexDelay"]=500--	单独使用，表示索引执行结束后延迟多久
+--	["indexRunTimeLength"]=60*60*5	----索引执行多久后结束 eg：60*60*5  5小时   以秒为单位
 --})
 
 -- mapping的通用方法
@@ -87,7 +88,21 @@ function mapping(opt)
 	if opt["indexDelay"] then
     map.indexDelay=opt["indexDelay"]
   end
-  
+	if opt["indexRunTimeLength"] then
+    map.indexRunTimeLength=opt["indexRunTimeLength"]
+  end
+	if opt["delay"] then
+    map.delay=opt["delay"]
+  end
+	if opt["invalidCheckTimes"] then
+    map.invalidCheckTimes=opt["invalidCheckTimes"]
+  end
+	if opt["validCheckTimes"] then
+    map.validCheckTimes=opt["validCheckTimes"]
+  end
+	
+	
+	
   --执行
   return map:Run()
 end
