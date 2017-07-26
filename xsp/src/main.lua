@@ -51,7 +51,13 @@ end
 -- 脱机版
 local function clientOnlyMain()
 	
+	滑动浮层()
 	登录()
+	
+	local _主线 = config['主线']
+	if _主线=='0' then
+			主线()
+	end
 	
 	local 每日必做 = config['每日必做'];
 	local must={}
@@ -72,9 +78,9 @@ local function clientOnlyMain()
 				快捷喝酒5次()
 			end
 		elseif "2"==v then
-			膜拜城主()
-		elseif "3"==v then
 			每日必做副本()
+		elseif "3"==v then
+			膜拜城主()
 		end
   end
 	
@@ -115,10 +121,9 @@ local function clientOnlyMain()
 	elseif 挂机 and 挂机=='1' then
 		未知暗殿挂机(2)
 	end
-		
-	--下面是打经验的脚本
+	
 	local 换角色 = config['change'];
-	if 换角色 and 换角色~='3' then
+	if 换角色 and 换角色~='3' then--'3'是不切换角色
 		local maxRole = 4
 		切换角色()
 		if 换角色=='0' then
@@ -133,9 +138,7 @@ local function clientOnlyMain()
 			clientOnlyMain()
 		end
 	end
-		
-	
-	
+
 	
 end
 

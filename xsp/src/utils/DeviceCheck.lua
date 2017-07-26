@@ -30,6 +30,9 @@ function getCurrentDevice()
 if (_fsw == 1080 and _fsh == 1920) then
 return 1
 end
+if  (_fsw == 750 and _fsh == 1334)  then --6  IOS 9:16 
+return 2
+end
 
 
 

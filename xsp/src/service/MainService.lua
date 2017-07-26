@@ -1,11 +1,24 @@
 
-local dao = require "data/DataCqws"
+local dao
+if _device==1 then
+	dao=require "data/DataCqws"
+elseif _device==2 then
+	dao=require "data/iphone6/Data_ws_dao"
+end
 
 
 --------------------功能函数------------------------------
 
 function 登录()
 	dao:登录()
+end
+
+function 滑动浮层()
+	dao:移动浮层()
+end
+
+function 主线()
+	dao:主线()
 end
 
 function 除魔5次()
