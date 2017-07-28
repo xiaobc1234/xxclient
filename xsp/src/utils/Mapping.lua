@@ -201,10 +201,13 @@ function Mapping:Run()
       if _debug then
         sysLog("pre操作："..page.pagename)
 --				print(page)
+--				print(zIndex)
       end
       if page:check(page.check_par) then
 					keepScreen(false)
-					
+					if _debug then
+						sysLog("checked操作："..page.pagename)
+					end
 --					print(zIndex)
 --					if zIndex['flush'] then
 --						print(page)

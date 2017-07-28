@@ -53,6 +53,7 @@ local function clientOnlyMain()
 	
 	滑动浮层()
 	登录()
+	移动左侧浮层()
 	
 	local _主线2 = config['主线2']
 	if _主线2=='0' then

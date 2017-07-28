@@ -182,6 +182,51 @@ local function pr()
 end
 print = pr()
 
+--截图工具
+function _snapshot()
+  -- 截图 
+  local name="img"
+  local snapshotname = name.."_"..os.date("%m-%d-%H-%M-%S", os.time())..".png"
+  sysLog(snapshotname)
+  local file ='[public]'..snapshotname
+  snapshot(file,0,0,h_,w_)--截图
+end
+
+function writePwdToClip()
+	writePasteboard((defaultPwd or 'q654321'));
+	mSleep(1000)
+end
+
+--输入文本内容到输入框
+function inputPwd()
+	init('jzsc2.login.xgd666.com',1);
+	sysLog("input")
+	mSleep(1000);
+	touchDown(1,417,215); --点击输入框获取焦点（假设已知输入框坐标150,150）
+	mSleep(50)
+	touchUp(1,417,215);
+	mSleep(1000); 
+	inputText("#CLEAR#") --删除输入框中的文字（假设输入框中已存在文字）
+	mSleep(1000); 
+	sysLog("defaultPwd="..defaultPwd)
+	inputText((defaultPwd or 'q654321').."#ENTER#"); --在输入框中输入字符串"Welcome."并回车
+	mSleep(1000)
+end
+
+--没用了 
+function 长按粘贴()
+	sysLog('长按粘贴....')
+	x=476
+	y=318
+	math.randomseed(tostring(os.time()):reverse():sub(1, 6))  --设置随机数种子
+  local index = math.random(1,5)
+  x = x+math.random(-2,2)
+  y = y+math.random(-2,2)
+  touchDown(index,x, y)
+  mSleep(math.random(1000,2000))                                --某些情况可能要增大延迟
+  touchUp(index, x, y)
+  mSleep(20)
+end
 
 
 

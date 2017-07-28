@@ -20,25 +20,58 @@ end
 		["invalidCheckTimes"]=5	--5次没有检测到这个界面，就结束这个索引
 	})
 end
+
+function Dao:移动左侧浮层()
+  local pages={
+   {data["登录"]["移动左侧浮层"],{31,387,31,456},a="swip","finish",co=true}
+  }
+  mapping({
+		["pages"]=pages,
+		["invalidCheckTimes"]=5	--5次没有检测到这个界面，就结束这个索引
+	})
+end
+ 
+function Dao:自动创建账号()
+  local pages={
+    {data["建号"]["注册按钮"],nil,a="searchTap"},
+		{data['建号']['注册页'],nil,_snapshot,bas=1000,one=true},
+		{data['建号']['注册页2'],{488,341},writePwdToClip,one=true,s="up"},
+		{data['建号']['注册页输入密码'],nil,长按粘贴,so="up",s="up2",one=true},
+		{data['建号']['粘贴提示'],nil,a='searchTap',so="up2",s="up3"},
+		{data['建号']['密码已输入'],{1166,154},so="up3",s="up4"},
+		{data['建号']['注册号账号进入'],nil,a='searchTap',so="up4",s="up5","finish"}
+  }
+  mapping({
+		["pages"]=pages,
+		["indexDelay"]=500
+	})
+end
+ 
  
 function Dao:登录()
   local pages={
+		{data["建号"]["注册按钮"],nil,self.自动创建账号,dao=self},
     {data["登录"]["登录账号"],nil,a="searchTap"},
 --		{data['登录']['安峰公告'],nil,a="searchTap"},
 --		{data['登录']['登录公告'],nil,a="searchTap"},
 		{data['登录']['登录游戏'],nil,a="searchTap"},
 		{data['登录']['选择角色'],nil,a="searchTap",p="进入游戏","finish",so="login"},--进入游戏
 		{data["登录"]["已登录"],nil,"finish"},
-		{data['离线奖励']['离线奖励'],nil,"finish"}
+		{data['离线奖励']['离线奖励'],nil,"finish"},
+		{data['登录']['创建道士'],nil,a="searchTap",s="login"},
+		{data['登录']['创建道士'],{794,671},p="刷新名字"},
   }
 	if role==1 then
-		table.insert(pages,{data['登录']['选择角色'],{1130,151},s="login"})--选择角色1
+		table.insert(pages,{data['登录']['角色1'],nil,a='searchTap',s="login"})--选择角色1
 	elseif role==2 then
-		table.insert(pages,{data['登录']['选择角色'],{1130,257},s="login"})--选择角色2
+		table.insert(pages,{data['登录']['角色2'],nil,a='searchTap',s="login"})--选择角色2
+		table.insert(pages,{data['登录']['角色2没有创建'],nil,a='searchTap'})
 	elseif role==3 then
-		table.insert(pages,{data['登录']['选择角色'],{1130,388},s="login"})--选择角色3
+		table.insert(pages,{data['登录']['角色3'],nil,a='searchTap',s="login"})--选择角色3
+		table.insert(pages,{data['登录']['角色3没有创建'],nil,a='searchTap'})
 	else 
-		table.insert(pages,{data['登录']['选择角色'],{1130,526},s="login"})--选择角色4
+		table.insert(pages,{data['登录']['角色4'],nil,a='searchTap',s="login"})--选择角色4
+		table.insert(pages,{data['登录']['角色4没有创建'],nil,a='searchTap'})
 	end
   mapping({
 		["pages"]=pages,
@@ -137,7 +170,8 @@ function Dao:降妖除魔1(t)
 			{data['每日必做']['每日必做'],nil,a="searchTap","sleep",1000},
 			{data['每日必做']['除魔'],nil,a="searchTap",self.降妖除魔,"finish",dao=self},
 			{data['主线']['除魔刷新'],nil,self.降妖除魔,"finish",dao=self},
-			{data['主线']['除魔进行中'],nil,self.降妖除魔,"finish",dao=self}
+			{data['主线']['除魔进行中'],nil,self.降妖除魔,"finish",dao=self},
+			{data['主线']['除魔进行中2'],nil,self.降妖除魔,"finish",dao=self},
 			}
 		mapping({
 			["pages"]=pages,
@@ -157,6 +191,7 @@ function Dao:任务栏降妖除魔1(t)
 	end
 	local pages={
 			{data['主线']['除魔进行中'],nil,a="searchTap",self.降妖除魔,"finish",dao=self},
+			{data['主线']['除魔进行中2'],nil,a="searchTap",self.降妖除魔,"finish",dao=self},
 			{data['离线奖励']['离线奖励'],{1225,44}},
 			{data['离线奖励']['关闭提示'],nil,a="searchTap"},
 			{data['主线']['除魔刷新'],nil,self.降妖除魔,"finish",dao=self},

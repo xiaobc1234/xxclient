@@ -17,6 +17,7 @@ _debug = true--定义全局debug模式
 
 -- 业务全局定义
 role =1	--角色默认是第一个角色
+defaultPwd='q654321'--注册账号默认密码
 
 
 --定义一些全局的变量
@@ -31,12 +32,12 @@ role =1	--角色默认是第一个角色
 
 
 
-local w_,h_ = getScreenSize() --w < h
+ w_,h_ = getScreenSize() --w < h
 local h = w_
 local w = h_
 
 _device = getCurrentDevice()
-
+sysLog("宽:"..w..",高:"..h)
 local supportSize = (_device > 0) --检测是否支持该分辨率
 if not supportSize then
   
