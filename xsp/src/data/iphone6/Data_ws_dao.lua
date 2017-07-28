@@ -564,7 +564,7 @@ function Dao:主线未知暗殿(t)
   }
   mapping({
 		["pages"]=pages,
-		["runCount"]=10	--如果一直停留在这个界面，超过3次，就结束这个索引
+		["runCount"]=20	--如果一直停留在这个界面，超过3次，就结束这个索引
 	})
 end
 
@@ -596,9 +596,9 @@ function Dao:未知暗殿刷怪(num,runtimeLength)
 		{data['挂机']['没血了'],nil,a="searchTap",self.买血,dao=self}
 	}
 	if num==2 then
-		table.insert(pages,{data["挂机"]["未知暗殿boss刷新1"],nil,"sleep",5000,a="searchTap",sc={"btn","menu"}})
+		table.insert(pages,{data["挂机"]["未知暗殿boss刷新2"],nil,"sleep",10000,a="searchTap",sc={"btn","menu"}})
 	else
-		table.insert(pages,{data["挂机"]["未知暗殿boss刷新2"],nil,"sleep",5000,a="searchTap",sc={"btn","menu"}})
+		table.insert(pages,{data["挂机"]["未知暗殿boss刷新1"],nil,"sleep",10000,a="searchTap",sc={"btn","menu"}})
 	end
   mapping({
 		["pages"]=pages,

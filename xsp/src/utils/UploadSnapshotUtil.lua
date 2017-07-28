@@ -10,17 +10,11 @@ function postImg(url,file)
   sysLog(url)
   if url==nil or file==nil then return false end
   local resbody ={}
-  local str = ''
   local boundary = 'abcde'
   --组建body  
-  str = str .. "------------------------------" .. boundary .. "\r\n"  
-  str = str .. 'Content-Disposition: form-data; name="img"; filename="img.png"\r\n'  
-  str = str .. "Content-Type: image/png\r\n\r\n"  
-  str = str .. file .. "\r\n"  
-  str = str .. "------------------------------" .. boundary .. "--\r\n" 
-  
-  
+	
   local _file = [[--abcde]].."\r\n"..[[Content-Disposition: form-data;name="img"; filename="img.png"]].."\r\n"..[[Content-Type: image/png]].."\r\n\r\n"..file
+	local _table1 = "\r\n"..[[--abcde]]..[[Content-Disposition: form-data;name="deviceId";]].."\r\n\r\n"..string.format('%s', getDeviceUUID())
   local _end = "\r\n"..[[--abcde--]].."\r\n"
   
   local body,code,headers,status = http.request{
@@ -28,10 +22,10 @@ function postImg(url,file)
     method="POST",
     headers={
       ["Content-Type"]="multipart/form-data;boundary=abcde",
-      ["Content-Length"]=#_file+#_end
+      ["Content-Length"]=#_file+#_table1+#_end
     },
     sink=ltn12.sink.table(resbody),
-    source=ltn12.source.cat(ltn12.source.string(_file),ltn12.source.string(_end))
+    source=ltn12.source.cat(ltn12.source.string(_file),ltn12.source.string(_table1),ltn12.source.string(_end))
     --    protocol="tlsv1"
   }
   
