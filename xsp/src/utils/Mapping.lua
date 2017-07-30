@@ -8,7 +8,7 @@ require "init"--只用它的showTip方法
 Mapping = {}
 --以下是索引模块的各项参数的默认值,每个新建的索引可以单独设置
 Mapping.timeout = 20        --出错超时时间
-Mapping.repeattimes = 20    --判断出错重复页面的次数
+--Mapping.repeattimes = 20    --判断出错重复页面的次数
 Mapping.snapshot = true     --出错后截图
 Mapping.errorrepeat = 1     --出错后运行程序的次数
 Mapping.defaultfuzzy = 95   --默认检查函数的相似度
@@ -315,9 +315,16 @@ function Mapping:Run()
 									page:action() 
 								end
 							end
+							
+							repeatTimesLocal = repeatTimesLocal+1	--检测到了页面说明执行了一次
+							
 							if page.ending then 
 								if page.ending=="finish" then
 									self.finished =true--这个索引结束
+									if self.repeatDelay then
+										--索引配置了重复执行延迟时间
+										sleep("self.repeatDelay",self.repeatDelay)
+									end
 									break
 								elseif page.ending_par then
 	--								sysLog("page.dao_self="..type(page.dao_self))
@@ -335,6 +342,10 @@ function Mapping:Run()
 								end
 								if type(page.ending_par)=="string" and page.ending_par=="finish" then
 									self.finished =true--这个索引结束
+									if self.repeatDelay then
+										--索引配置了重复执行延迟时间
+										sleep("self.repeatDelay",self.repeatDelay)
+									end
 									break
 								end
 							end
@@ -350,11 +361,8 @@ function Mapping:Run()
 									end
 								end
 							end
-							repeatTimesLocal = repeatTimesLocal+1	--检测到了页面说明执行了一次
-							if self.repeatDelay then
-								--索引配置了重复执行延迟时间
-								sleep("self.repeatDelay",self.repeatDelay)
-							end
+							
+							
 						end
 					end
 				
@@ -392,7 +400,7 @@ function Mapping:Run()
 		end
 		
 		-- 如果设置了重复执行索引，并且执行次数没有超过设置的次数
-		if self.repeatTimes and self.repeatTimes<repeatTimesLocal then
+		if self.repeatTimes and self.repeatTimes>repeatTimesLocal then
 			-- 有重复执行的设置，将索引结束标识符置为 未结束
 			self.finished =false
 		end

@@ -55,13 +55,24 @@ local function clientOnlyMain()
 	登录()
 	移动左侧浮层()
 	
-	local _主线2 = config['主线2']
-	if _主线2=='0' then
+	if config['全民礼包']=='0' then
+		领取全民礼包()
+	end
+	if config['回收装备全']=='0' then
+		主动回收装备()
+	end
+	if config['领取回收奖励']=='0' then
+		领取回收奖励()
+	end
+	if config['转生']=='0' then
+		升级转生()
+	end
+	
+	if config['主线2']=='0' then
 			经验商主线()
 	end
 	
-	local _主线 = config['主线']
-	if _主线=='0' then
+	if config['主线']=='0' then
 			主线()
 	end
 	
@@ -72,6 +83,12 @@ local function clientOnlyMain()
 	else
 		must = {每日必做}
 	end
+	local drink = false--是否有喝酒
+	for i,v in ipairs(must) do
+		if v=='4' then
+			drink = true
+		end
+  end
 
 	print(must)
 	for i,v in ipairs(must) do
@@ -79,7 +96,7 @@ local function clientOnlyMain()
 			除魔5次()
 		elseif "1"==v then
 			通天塔2次()
-			if must[4] then
+			if drink then
 				sleep('马上喝酒',2000)
 				快捷喝酒5次()
 			end
@@ -119,6 +136,13 @@ local function clientOnlyMain()
 	if 个人BOSS~="" then
 		-- 领取每日必做奖励
 		每日必做领奖()
+		--个人boss后如果配置了回收装备，自动回收装备和领取回收奖励
+		if config['回收装备全']=='0' then
+			主动回收装备()
+		end
+		if config['领取回收奖励']=='0' then
+			领取回收奖励()
+		end
 	end
 	
 	local 挂机 = config['未知暗殿']

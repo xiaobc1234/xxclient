@@ -106,6 +106,7 @@ function Public:swipSlow(x1,y1,x2,y2)
     touchMove(1, x2, y2)
     mSleep(1000)
     touchUp(1,x2,y2)
+		mSleep(1000)
  end
  
  -- 对外提供方法
