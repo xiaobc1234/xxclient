@@ -60,7 +60,9 @@ local function clientOnlyMain()
 	end
 	if config['回收装备全']=='0' then
 		主动回收装备()
+		
 	end
+	
 	if config['领取回收奖励']=='0' then
 		领取回收奖励()
 	end

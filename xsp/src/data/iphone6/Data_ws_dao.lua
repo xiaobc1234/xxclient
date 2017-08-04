@@ -751,7 +751,20 @@ end
 function Dao:设置拾取()
 	local pages={
 		{data['设置']['左侧拾取菜单'],nil,a='searchTap'},
-		{data['设置']['不捡金币'],nil,a='searchTap'}
+		{data['设置']['不捡金币'],nil,a='searchTap'},
+		{data['设置']['不捡装备'],nil,a="searchTap"},
+		{data['设置']['不捡药品'],nil,a="searchTap"}
+	}
+  mapping({
+		["pages"]=pages,
+		["runCount"]=4
+	})
+end
+
+function Dao:未知暗殿设置回滚()
+	local pages={
+		{data['设置']['左侧拾取菜单'],nil,a='searchTap'},
+		{data['设置']['捡装备'],nil,a='searchTap'}
 	}
   mapping({
 		["pages"]=pages,
